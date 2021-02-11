@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/bg"
         tools:context=".activity.MainActivity">
 
-        <TextView
+        <com.example.notes.customobject.TextViewCustom
             android:id="@+id/txt_my_notes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_20sdp"
-            android:fontFamily="@font/iran_sans_mobile_fa"
             android:text="@string/my_notes"
             android:textColor="@color/white"
             android:textSize="@dimen/_18sdp"
@@ -22,19 +21,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/txt_date"
+        <com.example.notes.customobject.TextViewCustom
+            android:id="@+id/txt_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_20sdp"
-            android:fontFamily="@font/iran_sans_mobile_fa"
-            android:text="@string/tue_february_9"
+            android:text="@string/good_morning"
             android:textColor="@color/white"
             android:textSize="@dimen/_9sdp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txt_my_notes" />
 
-        <EditText
+        <com.example.notes.customobject.EditTextCustom
             android:id="@+id/edt_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -44,15 +42,14 @@
             android:drawableStart="@drawable/ic_baseline_search"
             android:drawablePadding="@dimen/_8sdp"
             android:drawableTint="@color/white"
-            android:fontFamily="@font/iran_sans_mobile_fa"
             android:hint="@string/search_notes"
             android:imeOptions="actionDone"
             android:importantForAutofill="no"
             android:inputType="text"
-            android:padding="@dimen/_5sdp"
+            android:padding="@dimen/_7sdp"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            app:layout_constraintTop_toBottomOf="@id/txt_date" />
+            app:layout_constraintTop_toBottomOf="@id/txt_time" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_notes"
@@ -112,7 +109,6 @@
             android:layout_margin="@dimen/_20sdp"
             android:clickable="true"
             android:focusable="true"
-            android:foreground="?attr/selectableItemBackground"
             android:padding="@dimen/_5sdp"
             android:src="@drawable/ic_baseline_add"
             android:tint="@color/black"

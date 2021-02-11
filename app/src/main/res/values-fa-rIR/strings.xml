@@ -6,5 +6,11 @@
     <string name="tue_february_9">Tue, February 9</string>
     <string name="note_title">عنوان یاد داشت</string>
     <string name="notes">یاد داشت</string>
-    <string name="type_note_here">یاد داشت را اینجا بنویسید ...</string>
+    <string name="type_note_here">یاد داشت را اینجا بنویسید …</string>
+    <string name="good_morning">صبح بخیر</string>
+    <string name="good_evening">غروب بحیر</string>
+    <string name="good_night">شب بخیر</string>
+    <string name="good_afternoon">ظهر بخیر</string>
+    <string name="miscellaneous">متفرقه</string>
+    <string name="pick_color">رنگ را انتخاب کنید</string>
 </resources>
