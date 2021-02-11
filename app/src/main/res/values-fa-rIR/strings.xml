@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="notes" translatable="false">یاد داشت های من</string>
     <string name="app_name">Notes</string>
+    <string name="my_notes" translatable="false">یاد داشت های من</string>
+    <string name="search_notes">جستوجوی یاد داشت</string>
+    <string name="tue_february_9">Tue, February 9</string>
+    <string name="note_title">عنوان یاد داشت</string>
+    <string name="notes">یاد داشت</string>
+    <string name="type_note_here">یاد داشت را اینجا بنویسید ...</string>
 </resources>

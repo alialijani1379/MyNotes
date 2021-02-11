@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Notes</string>
-    <string name="notes">My Notes</string>
+    <string name="my_notes">My Notes</string>
+    <string name="search_notes">Search Notes</string>
+    <string name="tue_february_9">Tue, February 9</string>
+    <string name="note_title">Note Title</string>
+    <string name="notes">Notes Subtitle</string>
+    <string name="type_note_here">Type note here...</string>
 </resources>

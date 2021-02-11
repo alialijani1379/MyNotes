@@ -7,6 +7,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="gray">#dddddd</color>
+    <color name="shimmer1">#E4E2E2</color>
+    <color name="shimmer2">#dddddd</color>
     <color name="transparent">#00DDDDDD</color>
+    <color name="bg">#353434</color>
+    <color name="hint">#CFCDCD</color>
 </resources>
