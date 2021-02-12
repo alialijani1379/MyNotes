@@ -1,9 +1,12 @@
 package com.example.notes.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -62,16 +65,25 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NotesViewHolde
     class NotesViewHolder extends RecyclerView.ViewHolder {
         ItemNotesBinding itemNotesBinding;
         TextViewCustom txtNoteSubtitle;
+        LinearLayout layoutNote;
 
         public NotesViewHolder(ItemNotesBinding itemNotesBinding) {
             super(itemNotesBinding.getRoot());
             this.itemNotesBinding = itemNotesBinding;
             txtNoteSubtitle = itemView.findViewById(R.id.txt_subtitle);
+            layoutNote = itemView.findViewById(R.id.layout_notes);
         }
 
         void setNotes(Note notes) {
             if (notes.getSubtitle().trim().isEmpty()) {
                 txtNoteSubtitle.setVisibility(View.GONE);
+            }
+
+            GradientDrawable gradientDrawable = (GradientDrawable) layoutNote.getBackground();
+            if (notes.getColor() != null) {
+                gradientDrawable.setColor(Color.parseColor(notes.getColor()));
+            }else {
+                gradientDrawable.setColor(Color.parseColor("#535353"));
             }
         }
 

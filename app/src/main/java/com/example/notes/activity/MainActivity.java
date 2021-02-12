@@ -53,12 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         setUpRecyclerView();
         notesViewModel = new ViewModelProvider(this).get(NotesViewModel.class);
-        notesViewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
-            @Override
-            public void onChanged(List<Note> notes) {
-                adapter.setNotes(notes);
-            }
-        });
+        notesViewModel.getAllNotes().observe(this, notes -> adapter.setNotes(notes));
 
     }
 
@@ -102,7 +97,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.fb_add_notes:
                 Intent createNoteActivity = new Intent(this, CreateNoteActivity.class);
                 startActivityForResult(createNoteActivity, REQUEST_CODE_ADD_NOTE);
-//                startActivity(createNoteActivity);
                 break;
             case R.id.img_add_image:
 

@@ -38,6 +38,7 @@
                 android:background="@drawable/bg_note_color1" />
 
             <ImageView
+                android:id="@+id/img_color1"
                 android:layout_width="@dimen/_35sdp"
                 android:layout_height="@dimen/_35sdp"
                 android:padding="@dimen/_10sdp"
@@ -58,6 +59,7 @@
                 android:background="@drawable/bg_note_color2" />
 
             <ImageView
+                android:id="@+id/img_color2"
                 android:layout_width="@dimen/_35sdp"
                 android:layout_height="@dimen/_35sdp"
                 android:padding="@dimen/_10sdp"
@@ -77,6 +79,7 @@
                 android:background="@drawable/bg_note_color3" />
 
             <ImageView
+                android:id="@+id/img_color3"
                 android:layout_width="@dimen/_35sdp"
                 android:layout_height="@dimen/_35sdp"
                 android:padding="@dimen/_10sdp"
@@ -96,6 +99,7 @@
                 android:background="@drawable/bg_note_color4" />
 
             <ImageView
+                android:id="@+id/img_color4"
                 android:layout_width="@dimen/_35sdp"
                 android:layout_height="@dimen/_35sdp"
                 android:padding="@dimen/_10sdp"
@@ -115,6 +119,7 @@
                 android:background="@drawable/bg_note_color5" />
 
             <ImageView
+                android:id="@+id/img_color5"
                 android:layout_width="@dimen/_35sdp"
                 android:layout_height="@dimen/_35sdp"
                 android:padding="@dimen/_10sdp"

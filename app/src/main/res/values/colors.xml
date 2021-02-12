@@ -17,4 +17,5 @@
     <color name="yellow">#FFEB3B</color>
     <color name="green">#76BC25</color>
     <color name="orange">#FF9800</color>
+    <color name="color_item_notes">#535353</color>
 </resources>

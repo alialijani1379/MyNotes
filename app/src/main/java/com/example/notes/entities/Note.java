@@ -45,6 +45,9 @@ public class Note {
         this.webLink = webLink;
     }
 
+    public Note() {
+    }
+
     public int getId() {
         return id;
     }

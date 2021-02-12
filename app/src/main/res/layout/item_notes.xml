@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_4sdp"
+        android:id="@+id/layout_notes"
         android:layout_marginTop="@dimen/_12sdp"
         android:background="@drawable/bg_item_rv_main"
         android:orientation="vertical">

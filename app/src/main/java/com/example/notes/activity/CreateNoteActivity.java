@@ -1,6 +1,8 @@
 package com.example.notes.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -14,6 +16,7 @@ import androidx.databinding.DataBindingUtil;
 import com.example.notes.R;
 import com.example.notes.customobject.TextViewCustom;
 import com.example.notes.databinding.ActivityCreateNoteBinding;
+import com.example.notes.entities.Note;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.text.SimpleDateFormat;
@@ -37,6 +40,7 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
     private EditText edtNoteTitle;
     private EditText edtNoteSubtitle;
     private EditText edtNote;
+    private View viewSubtitleIndicator;
     private String selectedNoteColor;
     //</editor-fold>
 
@@ -46,11 +50,11 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
         createNoteBinding = DataBindingUtil.setContentView(this, R.layout.activity_create_note);
         bindViews(createNoteBinding);
         initBottomSheet();
+        selectedNoteColor = "#535353";
+        setSubtitleIndicatorColor();
         imgBack.setOnClickListener(this);
         imgDone.setOnClickListener(this);
         txtDate.setText(new SimpleDateFormat("EEEE, dd MMMM yyyy HH:mm a", Locale.getDefault()).format(new Date()));
-
-        selectedNoteColor = "#333333";
 
     }
 
@@ -68,11 +72,15 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
             return;
         }
 
+//        Note noteModel = new Note();
+//        noteModel.setColor(selectedNoteColor);
+
         Intent data = getIntent();
         data.putExtra(TITLE, title);
         data.putExtra(SUBTITLE, noteSubtitle);
         data.putExtra(NOTE, note);
         data.putExtra(DATE_TIME, dateTime);
+        data.putExtra(COLOR, selectedNoteColor);
 
         setResult(RESULT_OK, data);
         finish();
@@ -95,16 +103,75 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
     private void initBottomSheet() {
         final LinearLayout bottomSheet = findViewById(R.id.bottom_sheet);
         final BottomSheetBehavior<LinearLayout> bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-        bottomSheet.findViewById(R.id.txt_miscellaneous).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
-                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                } else {
-                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                }
+
+        bottomSheet.findViewById(R.id.txt_miscellaneous).setOnClickListener(v -> {
+            if (bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+            } else {
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
             }
         });
+
+        final ImageView imageColor1 = bottomSheet.findViewById(R.id.img_color1);
+        final ImageView imageColor2 = bottomSheet.findViewById(R.id.img_color2);
+        final ImageView imageColor3 = bottomSheet.findViewById(R.id.img_color3);
+        final ImageView imageColor4 = bottomSheet.findViewById(R.id.img_color4);
+        final ImageView imageColor5 = bottomSheet.findViewById(R.id.img_color5);
+
+        bottomSheet.findViewById(R.id.view_color1).setOnClickListener(v -> {
+            selectedNoteColor = "#535353";
+            imageColor1.setImageResource(R.drawable.ic_baseline_done);
+            imageColor2.setImageResource(0);
+            imageColor3.setImageResource(0);
+            imageColor4.setImageResource(0);
+            imageColor5.setImageResource(0);
+            setSubtitleIndicatorColor();
+        });
+
+        bottomSheet.findViewById(R.id.view_color2).setOnClickListener(v -> {
+            selectedNoteColor = "#F44336";
+            imageColor1.setImageResource(0);
+            imageColor2.setImageResource(R.drawable.ic_baseline_done);
+            imageColor3.setImageResource(0);
+            imageColor4.setImageResource(0);
+            imageColor5.setImageResource(0);
+            setSubtitleIndicatorColor();
+        });
+
+        bottomSheet.findViewById(R.id.view_color3).setOnClickListener(v -> {
+            selectedNoteColor = "#0377AC";
+            imageColor1.setImageResource(0);
+            imageColor2.setImageResource(0);
+            imageColor3.setImageResource(R.drawable.ic_baseline_done);
+            imageColor4.setImageResource(0);
+            imageColor5.setImageResource(0);
+            setSubtitleIndicatorColor();
+        });
+
+        bottomSheet.findViewById(R.id.view_color4).setOnClickListener(v -> {
+            selectedNoteColor = "#76BC25";
+            imageColor1.setImageResource(0);
+            imageColor2.setImageResource(0);
+            imageColor3.setImageResource(0);
+            imageColor4.setImageResource(R.drawable.ic_baseline_done);
+            imageColor5.setImageResource(0);
+            setSubtitleIndicatorColor();
+        });
+
+        bottomSheet.findViewById(R.id.view_color5).setOnClickListener(v -> {
+            selectedNoteColor = "#FF9800";
+            imageColor1.setImageResource(R.drawable.ic_baseline_done);
+            imageColor2.setImageResource(0);
+            imageColor3.setImageResource(0);
+            imageColor4.setImageResource(0);
+            imageColor5.setImageResource(R.drawable.ic_baseline_done);
+            setSubtitleIndicatorColor();
+        });
+    }
+
+    private void setSubtitleIndicatorColor() {
+        GradientDrawable gradientDrawable = (GradientDrawable) viewSubtitleIndicator.getBackground();
+        gradientDrawable.setColor(Color.parseColor(selectedNoteColor));
     }
 
     private void bindViews(ActivityCreateNoteBinding createNoteBinding) {
@@ -114,6 +181,7 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
         edtNoteTitle = createNoteBinding.edtNoteTitle;
         edtNoteSubtitle = createNoteBinding.edtNotesSubtitle;
         edtNote = createNoteBinding.edtNote;
+        viewSubtitleIndicator = createNoteBinding.viewSubtitleIndicator;
     }
 
 }
