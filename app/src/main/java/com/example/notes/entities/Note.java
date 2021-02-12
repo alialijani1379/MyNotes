@@ -35,6 +35,16 @@ public class Note {
     @ColumnInfo
     private String webLink;
 
+    public Note(String title, String dateTime, String subtitle, String noteText, String imagePath, String color, String webLink) {
+        this.title = title;
+        this.dateTime = dateTime;
+        this.subtitle = subtitle;
+        this.noteText = noteText;
+        this.imagePath = imagePath;
+        this.color = color;
+        this.webLink = webLink;
+    }
+
     public int getId() {
         return id;
     }

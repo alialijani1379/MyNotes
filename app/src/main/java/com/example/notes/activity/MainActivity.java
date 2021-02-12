@@ -3,18 +3,31 @@ package com.example.notes.activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.notes.R;
+import com.example.notes.adapter.NoteAdapter;
+import com.example.notes.adapter.NotesAdapter;
 import com.example.notes.customobject.TextViewCustom;
 import com.example.notes.databinding.ActivityMainBinding;
+import com.example.notes.entities.Note;
+import com.example.notes.viewmodel.NotesViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -24,6 +37,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextViewCustom txtTime;
     private RecyclerView recyclerView;
     private FloatingActionButton fbAdd;
+    private List<Note> notes;
+    private NotesAdapter notesAdapter;
+    private NotesViewModel notesViewModel;
+    private NoteAdapter adapter;
     //</editor-fold>
 
     @Override
@@ -34,6 +51,47 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setTime();
         fbAdd.setOnClickListener(this);
 
+        setUpRecyclerView();
+        notesViewModel = new ViewModelProvider(this).get(NotesViewModel.class);
+        notesViewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
+            @Override
+            public void onChanged(List<Note> notes) {
+                adapter.setNotes(notes);
+            }
+        });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_ADD_NOTE && resultCode == RESULT_OK) {
+            String title = data.getStringExtra(CreateNoteActivity.TITLE);
+            String subtitle = data.getStringExtra(CreateNoteActivity.SUBTITLE);
+            String note = data.getStringExtra(CreateNoteActivity.NOTE);
+            String dateTime = data.getStringExtra(CreateNoteActivity.DATE_TIME);
+            String imagePath = data.getStringExtra(CreateNoteActivity.IMAGE_PATH);
+            String color = data.getStringExtra(CreateNoteActivity.COLOR);
+            String webLink = data.getStringExtra(CreateNoteActivity.WEB_LINK);
+            Note note1 = new Note(title, dateTime, subtitle, note, imagePath, color, webLink);
+            NotesViewModel notesViewModel = new ViewModelProvider(this).get(NotesViewModel.class);
+            notesViewModel.insert(note1);
+            Toast.makeText(this, "Insert OK", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Insert NOT OK", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void setUpRecyclerView() {
+        notes = new ArrayList<>();
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        recyclerView.setHasFixedSize(true);
+        recyclerView.smoothScrollToPosition(0);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        adapter = new NoteAdapter(this, notes);
+//        notesAdapter = new NotesAdapter(this, notes);
+        recyclerView.setAdapter(adapter);
+//        notesAdapter.submitList(notes);
     }
 
     @SuppressLint("NonConstantResourceId")
