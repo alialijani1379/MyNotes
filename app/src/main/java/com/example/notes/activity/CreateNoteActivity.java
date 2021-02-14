@@ -85,7 +85,6 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void saveNote() {
-
         String title = edtNoteTitle.getText().toString().trim();
         String noteSubtitle = edtNoteSubtitle.getText().toString().trim();
         String note = edtNote.getText().toString().trim();

@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.notes.Interface.ListenerUpdate;
 import com.example.notes.R;
 import com.example.notes.customobject.TextViewCustom;
 import com.example.notes.databinding.ItemNotesBinding;
@@ -26,6 +27,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NotesViewHolde
 
     private Context context;
     private List<Note> noteList;
+    private ListenerUpdate listenerUpdate;
     private LayoutInflater layoutInflater;
 
     public NoteAdapter(Context context, List<Note> noteList) {

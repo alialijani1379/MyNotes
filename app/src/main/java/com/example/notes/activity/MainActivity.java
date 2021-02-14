@@ -3,14 +3,12 @@ package com.example.notes.activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,6 +27,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import io.supercharge.shimmerlayout.ShimmerLayout;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     //<editor-fold desc="--Declaration--">
@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ActivityMainBinding mainBinding;
     private TextViewCustom txtTime;
     private RecyclerView recyclerView;
+    private ShimmerLayout shimmerLayout;
     private FloatingActionButton fbAdd;
     private List<Note> notes;
     private NotesAdapter notesAdapter;
@@ -51,9 +52,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setTime();
         fbAdd.setOnClickListener(this);
 
+        shimmerLayout.startShimmerAnimation();
         setUpRecyclerView();
         notesViewModel = new ViewModelProvider(this).get(NotesViewModel.class);
         notesViewModel.getAllNotes().observe(this, notes -> adapter.setNotes(notes));
+        shimmerLayout.stopShimmerAnimation();
+        shimmerLayout.setVisibility(View.GONE);
 
     }
 
@@ -123,6 +127,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void bindViews(ActivityMainBinding mainBinding) {
         txtTime = mainBinding.txtTime;
         recyclerView = mainBinding.rvNotes;
+        shimmerLayout = mainBinding.shimmerLayout;
         fbAdd = mainBinding.fbAddNotes;
     }
 
