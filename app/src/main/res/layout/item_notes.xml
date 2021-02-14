@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -9,14 +10,27 @@
 
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_4sdp"
-        android:id="@+id/layout_notes"
         android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginHorizontal="@dimen/_4sdp"
+        app:cardCornerRadius="@dimen/_10sdp"
+        app:cardBackgroundColor="@color/color_item_notes">
+
+    <LinearLayout
+        android:id="@+id/layout_notes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@drawable/bg_item_rv_main"
         android:orientation="vertical">
+
+        <com.flaviofaria.kenburnsview.KenBurnsView
+            android:id="@+id/img_note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:visibility="gone" />
 
         <com.example.notes.customobject.TextViewCustom
             android:id="@+id/txt_title"
@@ -52,5 +66,7 @@
             android:textSize="@dimen/_7sdp" />
 
     </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 
 </layout>

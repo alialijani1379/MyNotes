@@ -98,15 +98,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent createNoteActivity = new Intent(this, CreateNoteActivity.class);
                 startActivityForResult(createNoteActivity, REQUEST_CODE_ADD_NOTE);
                 break;
-            case R.id.img_add_image:
-
-                break;
-            case R.id.img_add_web_link:
-
-                break;
-            case R.id.img_add_notes:
-
-                break;
         }
     }
 

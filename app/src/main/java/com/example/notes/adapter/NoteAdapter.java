@@ -1,11 +1,13 @@
 package com.example.notes.adapter;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
@@ -16,6 +18,7 @@ import com.example.notes.R;
 import com.example.notes.customobject.TextViewCustom;
 import com.example.notes.databinding.ItemNotesBinding;
 import com.example.notes.entities.Note;
+import com.flaviofaria.kenburnsview.KenBurnsView;
 
 import java.util.List;
 
@@ -66,12 +69,14 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NotesViewHolde
         ItemNotesBinding itemNotesBinding;
         TextViewCustom txtNoteSubtitle;
         LinearLayout layoutNote;
+        KenBurnsView imgNote;
 
         public NotesViewHolder(ItemNotesBinding itemNotesBinding) {
             super(itemNotesBinding.getRoot());
             this.itemNotesBinding = itemNotesBinding;
             txtNoteSubtitle = itemView.findViewById(R.id.txt_subtitle);
             layoutNote = itemView.findViewById(R.id.layout_notes);
+            imgNote = itemView.findViewById(R.id.img_note);
         }
 
         void setNotes(Note notes) {
@@ -82,8 +87,15 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NotesViewHolde
             GradientDrawable gradientDrawable = (GradientDrawable) layoutNote.getBackground();
             if (notes.getColor() != null) {
                 gradientDrawable.setColor(Color.parseColor(notes.getColor()));
-            }else {
+            } else {
                 gradientDrawable.setColor(Color.parseColor("#535353"));
+            }
+
+            if (notes.getImagePath() != null) {
+                imgNote.setImageBitmap(BitmapFactory.decodeFile(notes.getImagePath()));
+                imgNote.setVisibility(View.VISIBLE);
+            } else {
+                imgNote.setVisibility(View.GONE);
             }
         }
 

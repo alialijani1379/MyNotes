@@ -1,24 +1,42 @@
 package com.example.notes.activity;
 
+import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Patterns;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
 import com.example.notes.R;
 import com.example.notes.customobject.TextViewCustom;
 import com.example.notes.databinding.ActivityCreateNoteBinding;
-import com.example.notes.entities.Note;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -33,15 +51,22 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
     public static final String IMAGE_PATH = "image_path";
     public static final String COLOR = "color";
     public static final String WEB_LINK = "web_link";
+    public static final int REQUEST_CODE_STORAGE_PERMISSION = 1;
+    public static final int REQUEST_CODE_SELECT_IMAGE = 2;
     private ActivityCreateNoteBinding createNoteBinding;
     private ImageView imgBack;
     private ImageView imgDone;
-    private TextViewCustom txtDate;
+    private TextView txtDate;
     private EditText edtNoteTitle;
     private EditText edtNoteSubtitle;
+    private ImageView imgNote;
+    private LinearLayout layoutUrl;
+    private TextViewCustom txtUrl;
     private EditText edtNote;
     private View viewSubtitleIndicator;
     private String selectedNoteColor;
+    private String selectedImagePath;
+    private AlertDialog dialogAddUrl;
     //</editor-fold>
 
     @Override
@@ -51,6 +76,7 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
         bindViews(createNoteBinding);
         initBottomSheet();
         selectedNoteColor = "#535353";
+        selectedImagePath = "";
         setSubtitleIndicatorColor();
         imgBack.setOnClickListener(this);
         imgDone.setOnClickListener(this);
@@ -72,8 +98,6 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
             return;
         }
 
-//        Note noteModel = new Note();
-//        noteModel.setColor(selectedNoteColor);
 
         Intent data = getIntent();
         data.putExtra(TITLE, title);
@@ -81,6 +105,10 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
         data.putExtra(NOTE, note);
         data.putExtra(DATE_TIME, dateTime);
         data.putExtra(COLOR, selectedNoteColor);
+        data.putExtra(IMAGE_PATH, selectedImagePath);
+        if (layoutUrl.getVisibility() == View.VISIBLE) {
+            data.putExtra(WEB_LINK, txtUrl.getText().toString());
+        }
 
         setResult(RESULT_OK, data);
         finish();
@@ -160,18 +188,124 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
 
         bottomSheet.findViewById(R.id.view_color5).setOnClickListener(v -> {
             selectedNoteColor = "#FF9800";
-            imageColor1.setImageResource(R.drawable.ic_baseline_done);
+            imageColor1.setImageResource(0);
             imageColor2.setImageResource(0);
             imageColor3.setImageResource(0);
             imageColor4.setImageResource(0);
             imageColor5.setImageResource(R.drawable.ic_baseline_done);
             setSubtitleIndicatorColor();
         });
+
+        bottomSheet.findViewById(R.id.layout_add_img).setOnClickListener(v -> {
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(CreateNoteActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}
+                        , REQUEST_CODE_STORAGE_PERMISSION);
+            } else {
+                selectImage();
+            }
+        });
+
+        bottomSheet.findViewById(R.id.layout_add_url).setOnClickListener(v -> {
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            showAddUrlDialog();
+
+        });
+
     }
 
     private void setSubtitleIndicatorColor() {
         GradientDrawable gradientDrawable = (GradientDrawable) viewSubtitleIndicator.getBackground();
         gradientDrawable.setColor(Color.parseColor(selectedNoteColor));
+    }
+
+    private void selectImage() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, REQUEST_CODE_SELECT_IMAGE);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CODE_STORAGE_PERMISSION && grantResults.length > 0) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                selectImage();
+            } else {
+                Toast.makeText(this, R.string.permission_denied, Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_SELECT_IMAGE && resultCode == RESULT_OK) {
+            if (data != null) {
+                Uri selectedImageUri = data.getData();
+                if (selectedImageUri != null) {
+                    try {
+                        InputStream inputStream = getContentResolver().openInputStream(selectedImageUri);
+                        Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                        imgNote.setImageBitmap(bitmap);
+                        imgNote.setVisibility(View.VISIBLE);
+                        selectedImagePath = getPathFromUri(selectedImageUri);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    }
+
+    private String getPathFromUri(Uri uri) {
+        String filePath;
+        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+        if (cursor == null) {
+            filePath = uri.getPath();
+        } else {
+            cursor.moveToNext();
+            int index = cursor.getColumnIndex("_data");
+            filePath = cursor.getString(index);
+            cursor.close();
+        }
+        return filePath;
+    }
+
+    private void showAddUrlDialog() {
+        if (dialogAddUrl == null) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            View view = LayoutInflater.from(this).inflate(R.layout.item_add_url, null);
+            if (view.getParent() != null) {
+                ((ViewGroup) view.getParent()).removeView(view);
+            }
+
+            final EditText edtUrl = view.findViewById(R.id.edt_url);
+            edtUrl.requestFocus();
+
+            TextViewCustom txtAdd = view.findViewById(R.id.txt_add_url);
+            TextViewCustom txtCancel = view.findViewById(R.id.txt_cancel);
+
+            txtAdd.setOnClickListener(v -> {
+                if (edtUrl.getText().toString().trim().isEmpty()) {
+                    Toast.makeText(CreateNoteActivity.this, R.string.enter_url, Toast.LENGTH_SHORT).show();
+                } else if (!Patterns.WEB_URL.matcher(edtUrl.getText().toString().trim()).matches()) {
+                    Toast.makeText(CreateNoteActivity.this, R.string.enter_valid_url, Toast.LENGTH_SHORT).show();
+                } else {
+                    txtUrl.setText(edtUrl.getText().toString().trim());
+                    layoutUrl.setVisibility(View.VISIBLE);
+                    dialogAddUrl.dismiss();
+                }
+            });
+
+            txtCancel.setOnClickListener(v -> dialogAddUrl.dismiss());
+            builder.setView(view);
+            dialogAddUrl = builder.create();
+            if (dialogAddUrl.getWindow() != null) {
+                dialogAddUrl.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+            }
+        }
+        dialogAddUrl.show();
     }
 
     private void bindViews(ActivityCreateNoteBinding createNoteBinding) {
@@ -180,6 +314,9 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
         txtDate = createNoteBinding.txtDate;
         edtNoteTitle = createNoteBinding.edtNoteTitle;
         edtNoteSubtitle = createNoteBinding.edtNotesSubtitle;
+        imgNote = createNoteBinding.imgNote;
+        layoutUrl = createNoteBinding.layoutUrl;
+        txtUrl = createNoteBinding.txtUrl;
         edtNote = createNoteBinding.edtNote;
         viewSubtitleIndicator = createNoteBinding.viewSubtitleIndicator;
     }

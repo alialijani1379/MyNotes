@@ -12,4 +12,11 @@
     <string name="good_night">Good Night</string>
     <string name="miscellaneous">miscellaneous</string>
     <string name="pick_color">Pick Color</string>
+    <string name="add_image">Add Image</string>
+    <string name="permission_denied">Permission Denied!</string>
+    <string name="add_url">Add URL</string>
+    <string name="add">Add</string>
+    <string name="cancel">Cancel</string>
+    <string name="enter_url">Enter URL</string>
+    <string name="enter_valid_url">Enter Valid URL</string>
 </resources>

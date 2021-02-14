@@ -8,9 +8,16 @@
     <string name="notes">یاد داشت</string>
     <string name="type_note_here">یاد داشت را اینجا بنویسید …</string>
     <string name="good_morning">صبح بخیر</string>
-    <string name="good_evening">غروب بحیر</string>
     <string name="good_night">شب بخیر</string>
     <string name="good_afternoon">ظهر بخیر</string>
     <string name="miscellaneous">متفرقه</string>
     <string name="pick_color">رنگ را انتخاب کنید</string>
+    <string name="add_image">اضافه کردن عکس</string>
+    <string name="permission_denied">اجازه رد شد!</string>
+    <string name="add_url">اضافه کردن لینک</string>
+    <string name="add">اضافه کردن</string>
+    <string name="cancel">لغو</string>
+    <string name="enter_url">لینک را وارد کنید</string>
+    <string name="enter_valid_url">لینک را درست وارد کنید</string>
+    <string name="good_evening">ع</string>
 </resources>
