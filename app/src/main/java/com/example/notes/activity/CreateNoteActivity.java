@@ -44,6 +44,7 @@ import java.util.Locale;
 public class CreateNoteActivity extends AppCompatActivity implements View.OnClickListener {
 
     //<editor-fold desc="--Declaration--">
+    public static final String ID = "id";
     public static final String TITLE = "title";
     public static final String SUBTITLE = "subtitle";
     public static final String NOTE = "note";
@@ -67,6 +68,7 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
     private String selectedNoteColor;
     private String selectedImagePath;
     private AlertDialog dialogAddUrl;
+    private String color;
     //</editor-fold>
 
     @Override
@@ -74,14 +76,39 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         createNoteBinding = DataBindingUtil.setContentView(this, R.layout.activity_create_note);
         bindViews(createNoteBinding);
-        initBottomSheet();
-        selectedNoteColor = "#535353";
-        selectedImagePath = "";
-        setSubtitleIndicatorColor();
+
         imgBack.setOnClickListener(this);
         imgDone.setOnClickListener(this);
         txtDate.setText(new SimpleDateFormat("EEEE, dd MMMM yyyy HH:mm a", Locale.getDefault()).format(new Date()));
+        selectedNoteColor = "#535353";
+        selectedImagePath = "";
+        setUpdateNote();
+        initBottomSheet();
+        setSubtitleIndicatorColor();
 
+    }
+
+    private void setUpdateNote() {
+        Intent intent = getIntent();
+        intent.hasExtra(ID);
+        String title = intent.getStringExtra(MainActivity.TITLE_U);
+        String subtitle = intent.getStringExtra(MainActivity.SUBTITLE_U);
+        String note = intent.getStringExtra(MainActivity.NOTE_U);
+        String date = intent.getStringExtra(MainActivity.DATE_U);
+        String link = intent.getStringExtra(MainActivity.WEB_LINK_U);
+        String img = intent.getStringExtra(MainActivity.IMAGE_PATH_U);
+        color = intent.getStringExtra(MainActivity.COLOR_U);
+        edtNoteTitle.setText(title);
+        edtNoteSubtitle.setText(subtitle);
+        edtNote.setText(note);
+        txtDate.setText(date);
+        txtUrl.setText(link);
+        txtUrl.setVisibility(View.VISIBLE);
+        imgNote.setImageBitmap(BitmapFactory.decodeFile(img));
+        if (img != null) {
+            imgNote.setVisibility(View.VISIBLE);
+        }
+        selectedImagePath = img;
     }
 
     private void saveNote() {
@@ -98,7 +125,6 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
             return;
         }
 
-
         Intent data = getIntent();
         data.putExtra(TITLE, title);
         data.putExtra(SUBTITLE, noteSubtitle);
@@ -108,6 +134,10 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
         data.putExtra(IMAGE_PATH, selectedImagePath);
         if (layoutUrl.getVisibility() == View.VISIBLE) {
             data.putExtra(WEB_LINK, txtUrl.getText().toString());
+        }
+        int id = getIntent().getIntExtra(ID, -1);
+        if (id != -1) {
+            data.putExtra(ID, id);
         }
 
         setResult(RESULT_OK, data);
@@ -196,6 +226,24 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
             setSubtitleIndicatorColor();
         });
 
+//        switch (color) {
+//            case "#535353":
+//                bottomSheet.findViewById(R.id.view_color1).performClick();
+//                break;
+//            case "#F44336":
+//                bottomSheet.findViewById(R.id.view_color2).performClick();
+//                break;
+//            case "#0377AC":
+//                bottomSheet.findViewById(R.id.view_color3).performClick();
+//                break;
+//            case "#76BC25":
+//                bottomSheet.findViewById(R.id.view_color4).performClick();
+//                break;
+//            case "#FF9800":
+//                bottomSheet.findViewById(R.id.view_color5).performClick();
+//                break;
+//        }
+
         bottomSheet.findViewById(R.id.layout_add_img).setOnClickListener(v -> {
             bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
             if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -222,6 +270,7 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
 
     private void selectImage() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//        intent.setType("image/*");
         startActivityForResult(intent, REQUEST_CODE_SELECT_IMAGE);
     }
 

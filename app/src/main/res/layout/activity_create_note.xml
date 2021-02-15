@@ -116,6 +116,7 @@
                     android:layout_marginTop="@dimen/_16sdp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
+                    android:visibility="gone"
                     app:layout_constraintTop_toBottomOf="@id/img_note">
 
                     <com.example.notes.customobject.TextViewCustom

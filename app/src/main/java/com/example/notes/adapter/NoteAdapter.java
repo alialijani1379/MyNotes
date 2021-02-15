@@ -7,7 +7,6 @@ import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
@@ -30,9 +29,10 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NotesViewHolde
     private ListenerUpdate listenerUpdate;
     private LayoutInflater layoutInflater;
 
-    public NoteAdapter(Context context, List<Note> noteList) {
+    public NoteAdapter(Context context, List<Note> noteList, ListenerUpdate listenerUpdate) {
         this.context = context;
         this.noteList = noteList;
+        this.listenerUpdate = listenerUpdate;
     }
 
     @NonNull
@@ -50,6 +50,12 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NotesViewHolde
         Note note = noteList.get(position);
         holder.itemNotesBinding.setNote(note);
         holder.setNotes(note);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listenerUpdate.onListenerUpdate(note, position);
+            }
+        });
     }
 
     @Override
