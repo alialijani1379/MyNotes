@@ -368,6 +368,7 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
         txtUrl = createNoteBinding.txtUrl;
         edtNote = createNoteBinding.edtNote;
         viewSubtitleIndicator = createNoteBinding.viewSubtitleIndicator;
+
     }
 
 }

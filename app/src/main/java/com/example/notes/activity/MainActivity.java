@@ -87,7 +87,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             NotesViewModel notesViewModel = new ViewModelProvider(this).get(NotesViewModel.class);
             notesViewModel.insert(note1);
             Toast.makeText(this, "Insert OK", Toast.LENGTH_SHORT).show();
-
         } else if (requestCode == REQUEST_CODE_UPDATE_NOTE && resultCode == RESULT_OK) {
             int id = data.getIntExtra(CreateNoteActivity.ID, -1);
 
@@ -108,7 +107,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             NotesViewModel notesViewModel = new ViewModelProvider(this).get(NotesViewModel.class);
             notesViewModel.update(note1);
             Toast.makeText(this, "Note Updated", Toast.LENGTH_SHORT).show();
-
         } else {
             Toast.makeText(this, "Insert NOT OK", Toast.LENGTH_SHORT).show();
         }
@@ -131,7 +129,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         noteClickedPosition = position;
         Intent intent = new Intent(this, CreateNoteActivity.class);
         intent.putExtra("isViewOrUpdate", true);
-//        intent.putExtra("note", note);
         intent.putExtra(TITLE_U, note.getTitle());
         intent.putExtra(SUBTITLE_U, note.getSubtitle());
         intent.putExtra(NOTE_U, note.getNoteText());
