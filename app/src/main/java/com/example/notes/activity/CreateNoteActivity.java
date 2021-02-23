@@ -81,6 +81,7 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
         imgDone.setOnClickListener(this);
         txtDate.setText(new SimpleDateFormat("EEEE, dd MMMM yyyy HH:mm a", Locale.getDefault()).format(new Date()));
         selectedNoteColor = "#535353";
+
         selectedImagePath = "";
         setUpdateNote();
         initBottomSheet();
@@ -368,7 +369,6 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
         txtUrl = createNoteBinding.txtUrl;
         edtNote = createNoteBinding.edtNote;
         viewSubtitleIndicator = createNoteBinding.viewSubtitleIndicator;
-
     }
 
 }
