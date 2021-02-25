@@ -93,8 +93,7 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
 
     private void setUpdateNote() {
         Intent intent = getIntent();
-//        intent.hasExtra(ID);
-        if (intent.hasExtra(ID)){
+        intent.hasExtra(ID);
         String title = intent.getStringExtra(MainActivity.TITLE_U);
         String subtitle = intent.getStringExtra(MainActivity.SUBTITLE_U);
         String note = intent.getStringExtra(MainActivity.NOTE_U);
@@ -113,7 +112,6 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
             imgNote.setVisibility(View.VISIBLE);
         }
         selectedImagePath = img;
-        }
     }
 
     private void saveNote() {
