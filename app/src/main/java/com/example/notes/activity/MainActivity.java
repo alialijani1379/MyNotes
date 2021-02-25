@@ -129,6 +129,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         noteClickedPosition = position;
         Intent intent = new Intent(this, CreateNoteActivity.class);
         intent.putExtra("isViewOrUpdate", true);
+        intent.putExtra(CreateNoteActivity.ID, note.getId());
         intent.putExtra(TITLE_U, note.getTitle());
         intent.putExtra(SUBTITLE_U, note.getSubtitle());
         intent.putExtra(NOTE_U, note.getNoteText());
