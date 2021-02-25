@@ -1,6 +1,7 @@
 package com.example.notes.activity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -64,6 +65,8 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
     private LinearLayout layoutUrl;
     private TextViewCustom txtUrl;
     private EditText edtNote;
+    private LinearLayout bottomSheet;
+    private BottomSheetBehavior<LinearLayout> bottomSheetBehavior;
     private View viewSubtitleIndicator;
     private String selectedNoteColor;
     private String selectedImagePath;
@@ -76,12 +79,11 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         createNoteBinding = DataBindingUtil.setContentView(this, R.layout.activity_create_note);
         bindViews(createNoteBinding);
-
         imgBack.setOnClickListener(this);
         imgDone.setOnClickListener(this);
         txtDate.setText(new SimpleDateFormat("EEEE, dd MMMM yyyy HH:mm a", Locale.getDefault()).format(new Date()));
-        selectedNoteColor = "#535353";
 
+        selectedNoteColor = "#535353";
         selectedImagePath = "";
         setUpdateNote();
         initBottomSheet();
@@ -91,7 +93,8 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
 
     private void setUpdateNote() {
         Intent intent = getIntent();
-        intent.hasExtra(ID);
+//        intent.hasExtra(ID);
+        if (intent.hasExtra(ID)){
         String title = intent.getStringExtra(MainActivity.TITLE_U);
         String subtitle = intent.getStringExtra(MainActivity.SUBTITLE_U);
         String note = intent.getStringExtra(MainActivity.NOTE_U);
@@ -110,6 +113,7 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
             imgNote.setVisibility(View.VISIBLE);
         }
         selectedImagePath = img;
+        }
     }
 
     private void saveNote() {
@@ -146,6 +150,7 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
 
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -160,8 +165,8 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void initBottomSheet() {
-        final LinearLayout bottomSheet = findViewById(R.id.bottom_sheet);
-        final BottomSheetBehavior<LinearLayout> bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
 
         bottomSheet.findViewById(R.id.txt_miscellaneous).setOnClickListener(v -> {
             if (bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
@@ -227,23 +232,25 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
             setSubtitleIndicatorColor();
         });
 
-//        switch (color) {
-//            case "#535353":
-//                bottomSheet.findViewById(R.id.view_color1).performClick();
-//                break;
-//            case "#F44336":
-//                bottomSheet.findViewById(R.id.view_color2).performClick();
-//                break;
-//            case "#0377AC":
-//                bottomSheet.findViewById(R.id.view_color3).performClick();
-//                break;
-//            case "#76BC25":
-//                bottomSheet.findViewById(R.id.view_color4).performClick();
-//                break;
-//            case "#FF9800":
-//                bottomSheet.findViewById(R.id.view_color5).performClick();
-//                break;
-//        }
+        if (color != null) {
+            switch (color) {
+                case "#535353":
+                    bottomSheet.findViewById(R.id.view_color1).performClick();
+                    break;
+                case "#F44336":
+                    bottomSheet.findViewById(R.id.view_color2).performClick();
+                    break;
+                case "#0377AC":
+                    bottomSheet.findViewById(R.id.view_color3).performClick();
+                    break;
+                case "#76BC25":
+                    bottomSheet.findViewById(R.id.view_color4).performClick();
+                    break;
+                case "#FF9800":
+                    bottomSheet.findViewById(R.id.view_color5).performClick();
+                    break;
+            }
+        }
 
         bottomSheet.findViewById(R.id.layout_add_img).setOnClickListener(v -> {
             bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
@@ -259,9 +266,29 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
         bottomSheet.findViewById(R.id.layout_add_url).setOnClickListener(v -> {
             bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
             showAddUrlDialog();
-
         });
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_SELECT_IMAGE && resultCode == RESULT_OK) {
+            if (data != null) {
+                Uri selectedImageUri = data.getData();
+                if (selectedImageUri != null) {
+                    try {
+                        InputStream inputStream = getContentResolver().openInputStream(selectedImageUri);
+                        Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                        imgNote.setImageBitmap(bitmap);
+                        imgNote.setVisibility(View.VISIBLE);
+                        selectedImagePath = getPathFromUri(selectedImageUri);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
     }
 
     private void setSubtitleIndicatorColor() {
@@ -283,27 +310,6 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
                 selectImage();
             } else {
                 Toast.makeText(this, R.string.permission_denied, Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_SELECT_IMAGE && resultCode == RESULT_OK) {
-            if (data != null) {
-                Uri selectedImageUri = data.getData();
-                if (selectedImageUri != null) {
-                    try {
-                        InputStream inputStream = getContentResolver().openInputStream(selectedImageUri);
-                        Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                        imgNote.setImageBitmap(bitmap);
-                        imgNote.setVisibility(View.VISIBLE);
-                        selectedImagePath = getPathFromUri(selectedImageUri);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                }
             }
         }
     }
@@ -369,6 +375,16 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
         txtUrl = createNoteBinding.txtUrl;
         edtNote = createNoteBinding.edtNote;
         viewSubtitleIndicator = createNoteBinding.viewSubtitleIndicator;
+        bottomSheet = findViewById(R.id.bottom_sheet);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        } else {
+            super.onBackPressed();
+        }
     }
 
 }
