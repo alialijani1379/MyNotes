@@ -58,20 +58,22 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
     private ActivityCreateNoteBinding createNoteBinding;
     private ImageView imgBack;
     private ImageView imgDone;
+    private ImageView imgNote;
+    private ImageView imgRemoveImage;
+    private ImageView imgRemoveUrl;
     private TextView txtDate;
+    private TextViewCustom txtUrl;
     private EditText edtNoteTitle;
     private EditText edtNoteSubtitle;
-    private ImageView imgNote;
-    private LinearLayout layoutUrl;
-    private TextViewCustom txtUrl;
     private EditText edtNote;
+    private LinearLayout layoutUrl;
     private LinearLayout bottomSheet;
     private BottomSheetBehavior<LinearLayout> bottomSheetBehavior;
     private View viewSubtitleIndicator;
     private String selectedNoteColor;
     private String selectedImagePath;
-    private AlertDialog dialogAddUrl;
     private String color;
+    private AlertDialog dialogAddUrl;
     //</editor-fold>
 
     @Override
@@ -85,6 +87,9 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
 
         selectedNoteColor = "#535353";
         selectedImagePath = "";
+
+//        imgRemoveUrl.setOnClickListener(this);
+//        imgRemoveImage.setOnClickListener(this);
         setUpdateNote();
         initBottomSheet();
         setSubtitleIndicatorColor();
@@ -93,25 +98,26 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
 
     private void setUpdateNote() {
         Intent intent = getIntent();
-        if (intent.hasExtra(ID)){
-        String title = intent.getStringExtra(MainActivity.TITLE_U);
-        String subtitle = intent.getStringExtra(MainActivity.SUBTITLE_U);
-        String note = intent.getStringExtra(MainActivity.NOTE_U);
-        String date = intent.getStringExtra(MainActivity.DATE_U);
-        String link = intent.getStringExtra(MainActivity.WEB_LINK_U);
-        String img = intent.getStringExtra(MainActivity.IMAGE_PATH_U);
-        color = intent.getStringExtra(MainActivity.COLOR_U);
-        edtNoteTitle.setText(title);
-        edtNoteSubtitle.setText(subtitle);
-        edtNote.setText(note);
-        txtDate.setText(date);
-        txtUrl.setText(link);
-        txtUrl.setVisibility(View.VISIBLE);
-        imgNote.setImageBitmap(BitmapFactory.decodeFile(img));
-        if (img != null) {
-            imgNote.setVisibility(View.VISIBLE);
-        }
-        selectedImagePath = img;
+        if (intent.hasExtra(ID)) {
+            String title = intent.getStringExtra(MainActivity.TITLE_U);
+            String subtitle = intent.getStringExtra(MainActivity.SUBTITLE_U);
+            String note = intent.getStringExtra(MainActivity.NOTE_U);
+            String date = intent.getStringExtra(MainActivity.DATE_U);
+            String link = intent.getStringExtra(MainActivity.WEB_LINK_U);
+            String img = intent.getStringExtra(MainActivity.IMAGE_PATH_U);
+            color = intent.getStringExtra(MainActivity.COLOR_U);
+            edtNoteTitle.setText(title);
+            edtNoteSubtitle.setText(subtitle);
+            edtNote.setText(note);
+            txtDate.setText(date);
+            txtUrl.setText(link);
+            layoutUrl.setVisibility(View.VISIBLE);
+            imgNote.setImageBitmap(BitmapFactory.decodeFile(img));
+            if (img != null) {
+                imgNote.setVisibility(View.VISIBLE);
+//                imgRemoveImage.setVisibility(View.VISIBLE);
+            }
+            selectedImagePath = img;
         }
     }
 
@@ -160,6 +166,16 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
             case R.id.img_done:
                 saveNote();
                 break;
+            case R.id.img_remove_url:
+                txtUrl.setText(null);
+                layoutUrl.setVisibility(View.GONE);
+                break;
+           /* case R.id.img_remove_image:
+                imgNote.setImageBitmap(null);
+                imgNote.setVisibility(View.GONE);
+                imgRemoveImage.setVisibility(View.GONE);
+                selectedImagePath = "";
+                break;*/
         }
     }
 
@@ -281,6 +297,8 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
                         Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                         imgNote.setImageBitmap(bitmap);
                         imgNote.setVisibility(View.VISIBLE);
+//                        imgRemoveImage.setVisibility(View.VISIBLE);
+
                         selectedImagePath = getPathFromUri(selectedImageUri);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
@@ -366,13 +384,15 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
     private void bindViews(ActivityCreateNoteBinding createNoteBinding) {
         imgBack = createNoteBinding.imgBack;
         imgDone = createNoteBinding.imgDone;
+        imgNote = createNoteBinding.imgNote;
+//        imgRemoveImage = createNoteBinding.imgRemoveImage;
+//        imgRemoveUrl = createNoteBinding.imgRemoveUrl;
         txtDate = createNoteBinding.txtDate;
+        txtUrl = createNoteBinding.txtUrl;
         edtNoteTitle = createNoteBinding.edtNoteTitle;
         edtNoteSubtitle = createNoteBinding.edtNotesSubtitle;
-        imgNote = createNoteBinding.imgNote;
-        layoutUrl = createNoteBinding.layoutUrl;
-        txtUrl = createNoteBinding.txtUrl;
         edtNote = createNoteBinding.edtNote;
+        layoutUrl = createNoteBinding.layoutUrl;
         viewSubtitleIndicator = createNoteBinding.viewSubtitleIndicator;
         bottomSheet = findViewById(R.id.bottom_sheet);
     }

@@ -29,6 +29,7 @@
                     android:layout_marginTop="@dimen/_16sdp"
                     android:background="@drawable/shape_img"
                     android:clickable="true"
+                    android:contentDescription="@string/app_name"
                     android:focusable="true"
                     android:foreground="?attr/selectableItemBackground"
                     android:padding="@dimen/_3sdp"
@@ -45,6 +46,7 @@
                     android:layout_marginEnd="@dimen/_16sdp"
                     android:background="@drawable/shape_img"
                     android:clickable="true"
+                    android:contentDescription="@string/app_name"
                     android:focusable="true"
                     android:foreground="?attr/selectableItemBackground"
                     android:padding="@dimen/_3sdp"
@@ -74,7 +76,6 @@
                     android:background="@null"
                     android:fontFamily="@font/iran_sans_mobile_fa"
                     android:hint="@string/note_title"
-                    android:imeOptions="actionDone"
                     android:inputType="text"
                     android:padding="@dimen/_5sdp"
                     android:textColor="@color/white"
@@ -108,26 +109,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@id/edt_notes_subtitle" />
 
-                <LinearLayout
-                    android:id="@+id/layout_url"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_16sdp"
-                    android:layout_marginTop="@dimen/_16sdp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:visibility="gone"
-                    app:layout_constraintTop_toBottomOf="@id/img_note">
-
-                    <com.example.notes.customobject.TextViewCustom
-                        android:id="@+id/txt_url"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:autoLink="web"
-                        android:textColor="@color/white" />
-
-                </LinearLayout>
-
                 <ImageView
                     android:id="@+id/img_note"
                     android:layout_width="match_parent"
@@ -135,8 +116,52 @@
                     android:layout_marginHorizontal="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_16sdp"
                     android:adjustViewBounds="true"
-                    android:visibility="gone"
+                    tools:src="@drawable/ic_launcher_background"
+                    android:contentDescription="@string/app_name"
                     app:layout_constraintTop_toBottomOf="@id/edt_notes_subtitle" />
+
+                <!--<ImageView
+                    android:id="@+id/img_remove_image"
+                    android:layout_width="@dimen/_23sdp"
+                    android:layout_height="@dimen/_23sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_baseline_delete"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@id/img_note"
+                    app:layout_constraintTop_toTopOf="@id/img_note"
+                    app:tint="@color/blue" />-->
+
+                <LinearLayout
+                    android:id="@+id/layout_url"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:gravity="center_vertical"
+                    android:visibility="gone"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@id/img_note">
+
+                    <com.example.notes.customobject.TextViewCustom
+                        android:id="@+id/txt_url"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:autoLink="web"
+                        android:textColor="@color/white"
+                        tools:text="google.com" />
+
+                    <ImageView
+                        android:id="@+id/img_remove_url"
+                        android:layout_width="@dimen/_23sdp"
+                        android:layout_height="@dimen/_23sdp"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/ic_baseline_delete"
+                        app:tint="@color/white" />
+
+                </LinearLayout>
 
                 <com.example.notes.customobject.EditTextCustom
                     android:id="@+id/edt_note"
