@@ -73,6 +73,9 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
     private View viewSubtitleIndicator;
     private String selectedNoteColor;
     private String selectedImagePath;
+    private String title;
+    private String noteSubtitle;
+    private String note;
     private String color;
     private AlertDialog dialogAddUrl;
     private AlertDialog dialogOnBack;
