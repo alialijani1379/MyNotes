@@ -75,6 +75,7 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
     private String selectedImagePath;
     private String color;
     private AlertDialog dialogAddUrl;
+    private AlertDialog dialogOnBack;
     //</editor-fold>
 
     @Override
@@ -383,6 +384,40 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
         dialogAddUrl.show();
     }
 
+    private void showOnBackDialog() {
+        if (dialogOnBack == null) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            View view = LayoutInflater.from(this).inflate(R.layout.item_on_back_presed, null);
+            if (view.getParent() != null) {
+                ((ViewGroup) view.getParent()).removeView(view);
+            }
+
+            TextViewCustom txtCancel = view.findViewById(R.id.txt_cancel);
+            TextViewCustom txtDiscard = view.findViewById(R.id.txt_discard);
+            TextViewCustom txtSave = view.findViewById(R.id.txt_save);
+
+            txtDiscard.setOnClickListener(v -> {
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            });
+
+            txtSave.setOnClickListener(v -> {
+                saveNote();
+                dialogOnBack.dismiss();
+
+            });
+
+            txtCancel.setOnClickListener(v -> dialogOnBack.dismiss());
+            builder.setView(view);
+            dialogOnBack = builder.create();
+            if (dialogOnBack.getWindow() != null) {
+                dialogOnBack.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+            }
+        }
+        dialogOnBack.show();
+    }
+
     private void bindViews(ActivityCreateNoteBinding createNoteBinding) {
         imgBack = createNoteBinding.imgBack;
         imgDone = createNoteBinding.imgDone;
@@ -403,6 +438,8 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
     public void onBackPressed() {
         if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
             bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        } else if (!(edtNoteTitle.getText().toString().trim().isEmpty() && edtNoteSubtitle.getText().toString().trim().isEmpty())) {
+            showOnBackDialog();
         } else {
             super.onBackPressed();
         }

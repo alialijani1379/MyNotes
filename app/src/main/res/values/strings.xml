@@ -19,4 +19,7 @@
     <string name="cancel">Cancel</string>
     <string name="enter_url">Enter URL</string>
     <string name="enter_valid_url">Enter Valid URL</string>
+    <string name="save_your_changes_or_discard_them">Save your changes or discard them?</string>
+    <string name="discard">Discard</string>
+    <string name="save">Save</string>
 </resources>

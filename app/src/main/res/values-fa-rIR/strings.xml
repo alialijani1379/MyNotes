@@ -20,4 +20,7 @@
     <string name="enter_url">لینک را وارد کنید</string>
     <string name="enter_valid_url">لینک را درست وارد کنید</string>
     <string name="good_evening">ع</string>
+    <string name="save_your_changes_or_discard_them">Save your changes or discard them?</string>
+    <string name="discard">دور انداختن</string>
+    <string name="save">ذخیره</string>
 </resources>

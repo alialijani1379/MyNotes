@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private RecyclerView recyclerView;
     private ShimmerLayout shimmerLayout;
     private FloatingActionButton fbAdd;
-    private List<Note> notes;
+    private List<Note> notes = new ArrayList<>();
     private NotesViewModel notesViewModel;
     private NotesAdapter notesAdapter;
     private NoteAdapter adapter;
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         shimmerLayout.stopShimmerAnimation();
         shimmerLayout.setVisibility(View.GONE);
 
-        /*edtSearch.addTextChangedListener(new TextWatcher() {
+        edtSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -84,17 +84,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                adapter.cancelTimer();
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.toString().isEmpty()) {
-                } else {
-                    filter(s.toString());
+//                if (s.toString().isEmpty()) {
+//                } else {
+//                    filter(s.toString());
+//                }
+                if (notes.size() != 0) {
+                adapter.searchNotes(s.toString());
                 }
             }
-        });*/
+        });
 
     }
 
