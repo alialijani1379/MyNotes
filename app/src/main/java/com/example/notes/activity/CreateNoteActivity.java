@@ -41,6 +41,7 @@ import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 public class CreateNoteActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -84,12 +85,11 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
         imgBack.setOnClickListener(this);
         imgDone.setOnClickListener(this);
         txtDate.setText(new SimpleDateFormat("EEEE, dd MMMM yyyy HH:mm a", Locale.getDefault()).format(new Date()));
-
         selectedNoteColor = "#535353";
         selectedImagePath = "";
 
-//        imgRemoveUrl.setOnClickListener(this);
-//        imgRemoveImage.setOnClickListener(this);
+        imgRemoveUrl.setOnClickListener(this);
+        imgRemoveImage.setOnClickListener(this);
         setUpdateNote();
         initBottomSheet();
         setSubtitleIndicatorColor();
@@ -110,12 +110,14 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
             edtNoteSubtitle.setText(subtitle);
             edtNote.setText(note);
             txtDate.setText(date);
-            txtUrl.setText(link);
-            layoutUrl.setVisibility(View.VISIBLE);
+            if (link != null) {
+                txtUrl.setText(link);
+                layoutUrl.setVisibility(View.VISIBLE);
+            }
             imgNote.setImageBitmap(BitmapFactory.decodeFile(img));
-            if (img != null) {
+            if (!(Objects.equals(img, ""))) {
                 imgNote.setVisibility(View.VISIBLE);
-//                imgRemoveImage.setVisibility(View.VISIBLE);
+                imgRemoveImage.setVisibility(View.VISIBLE);
             }
             selectedImagePath = img;
         }
@@ -170,12 +172,12 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
                 txtUrl.setText(null);
                 layoutUrl.setVisibility(View.GONE);
                 break;
-           /* case R.id.img_remove_image:
+            case R.id.img_remove_image:
                 imgNote.setImageBitmap(null);
                 imgNote.setVisibility(View.GONE);
                 imgRemoveImage.setVisibility(View.GONE);
                 selectedImagePath = "";
-                break;*/
+                break;
         }
     }
 
@@ -297,7 +299,7 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
                         Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                         imgNote.setImageBitmap(bitmap);
                         imgNote.setVisibility(View.VISIBLE);
-//                        imgRemoveImage.setVisibility(View.VISIBLE);
+                        imgRemoveImage.setVisibility(View.VISIBLE);
 
                         selectedImagePath = getPathFromUri(selectedImageUri);
                     } catch (FileNotFoundException e) {
@@ -385,8 +387,8 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
         imgBack = createNoteBinding.imgBack;
         imgDone = createNoteBinding.imgDone;
         imgNote = createNoteBinding.imgNote;
-//        imgRemoveImage = createNoteBinding.imgRemoveImage;
-//        imgRemoveUrl = createNoteBinding.imgRemoveUrl;
+        imgRemoveImage = createNoteBinding.imgRemoveImage;
+        imgRemoveUrl = createNoteBinding.imgRemoveUrl;
         txtDate = createNoteBinding.txtDate;
         txtUrl = createNoteBinding.txtUrl;
         edtNoteTitle = createNoteBinding.edtNoteTitle;

@@ -50,12 +50,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NotesViewHolde
         Note note = noteList.get(position);
         holder.itemNotesBinding.setNote(note);
         holder.setNotes(note);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listenerUpdate.onListenerUpdate(note, position);
-            }
-        });
+        holder.itemView.setOnClickListener(v -> listenerUpdate.onListenerUpdate(note, position));
     }
 
     @Override
@@ -99,7 +94,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NotesViewHolde
                 gradientDrawable.setColor(Color.parseColor("#535353"));
             }
 
-            if (notes.getImagePath() != null) {
+            if (!(notes.getImagePath().equals(""))) {
                 imgNote.setImageBitmap(BitmapFactory.decodeFile(notes.getImagePath()));
                 imgNote.setVisibility(View.VISIBLE);
             } else {

@@ -116,11 +116,12 @@
                     android:layout_marginHorizontal="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_16sdp"
                     android:adjustViewBounds="true"
-                    tools:src="@drawable/ic_launcher_background"
                     android:contentDescription="@string/app_name"
-                    app:layout_constraintTop_toBottomOf="@id/edt_notes_subtitle" />
+                    android:visibility="gone"
+                    app:layout_constraintTop_toBottomOf="@id/edt_notes_subtitle"
+                    tools:src="@drawable/ic_launcher_background" />
 
-                <!--<ImageView
+                <ImageView
                     android:id="@+id/img_remove_image"
                     android:layout_width="@dimen/_23sdp"
                     android:layout_height="@dimen/_23sdp"
@@ -131,7 +132,7 @@
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="@id/img_note"
                     app:layout_constraintTop_toTopOf="@id/img_note"
-                    app:tint="@color/blue" />-->
+                    app:tint="@color/blue" />
 
                 <LinearLayout
                     android:id="@+id/layout_url"
@@ -140,8 +141,8 @@
                     android:layout_marginHorizontal="@dimen/_16sdp"
                     android:layout_marginTop="@dimen/_16sdp"
                     android:gravity="center_vertical"
-                    android:visibility="gone"
                     android:orientation="horizontal"
+                    android:visibility="gone"
                     app:layout_constraintTop_toBottomOf="@id/img_note">
 
                     <com.example.notes.customobject.TextViewCustom
