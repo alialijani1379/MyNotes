@@ -9,6 +9,17 @@
         android:background="@color/bg"
         tools:context=".activity.MainActivity">
 
+        <ImageView
+            android:id="@+id/img_state"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_margin="@dimen/_14sdp"
+            android:src="@drawable/ic_baseline_language"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
+
         <com.example.notes.customobject.TextViewCustom
             android:id="@+id/txt_my_notes"
             android:layout_width="wrap_content"
@@ -98,7 +109,8 @@
             android:src="@drawable/ic_baseline_add"
             android:tint="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="@string/app_name" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

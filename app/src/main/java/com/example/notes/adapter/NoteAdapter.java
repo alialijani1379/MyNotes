@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.notes.Interface.ListenerDelete;
 import com.example.notes.Interface.ListenerUpdate;
 import com.example.notes.R;
 import com.example.notes.customobject.TextViewCustom;
@@ -27,12 +28,14 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NotesViewHolde
     private Context context;
     private List<Note> noteList;
     private ListenerUpdate listenerUpdate;
+    private ListenerDelete listenerDelete;
     private LayoutInflater layoutInflater;
 
-    public NoteAdapter(Context context, List<Note> noteList, ListenerUpdate listenerUpdate) {
+    public NoteAdapter(Context context, List<Note> noteList, ListenerUpdate listenerUpdate, ListenerDelete listenerDelete) {
         this.context = context;
         this.noteList = noteList;
         this.listenerUpdate = listenerUpdate;
+        this.listenerDelete = listenerDelete;
     }
 
     @NonNull
@@ -51,6 +54,10 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NotesViewHolde
         holder.itemNotesBinding.setNote(note);
         holder.setNotes(note);
         holder.itemView.setOnClickListener(v -> listenerUpdate.onListenerUpdate(note, position));
+        holder.itemView.setOnLongClickListener(v -> {
+            listenerDelete.onListenerDelete(note);
+            return false;
+        });
     }
 
     @Override
@@ -102,6 +109,11 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NotesViewHolde
             }
         }
 
+    }
+
+    public void filterList(List<Note> filterList) {
+        noteList = filterList;
+        notifyDataSetChanged();
     }
 
 }

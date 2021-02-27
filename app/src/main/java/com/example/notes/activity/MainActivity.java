@@ -3,7 +3,12 @@ package com.example.notes.activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -14,6 +19,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.example.notes.Interface.ListenerDelete;
 import com.example.notes.Interface.ListenerUpdate;
 import com.example.notes.R;
 import com.example.notes.adapter.NoteAdapter;
@@ -30,7 +36,7 @@ import java.util.List;
 
 import io.supercharge.shimmerlayout.ShimmerLayout;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, ListenerUpdate {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, ListenerUpdate, ListenerDelete {
 
     //<editor-fold desc="--Declaration--">
     public static final String TITLE_U = "title_u";
@@ -43,15 +49,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static final int REQUEST_CODE_ADD_NOTE = 1;
     public static final int REQUEST_CODE_UPDATE_NOTE = 2;
     private ActivityMainBinding mainBinding;
+    private ImageView imgState;
     private TextViewCustom txtTime;
+    private EditText edtSearch;
     private RecyclerView recyclerView;
     private ShimmerLayout shimmerLayout;
     private FloatingActionButton fbAdd;
     private List<Note> notes;
-    private NotesAdapter notesAdapter;
     private NotesViewModel notesViewModel;
+    private NotesAdapter notesAdapter;
     private NoteAdapter adapter;
-    private int noteClickedPosition = -1;
     //</editor-fold>
 
     @Override
@@ -69,6 +76,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         shimmerLayout.stopShimmerAnimation();
         shimmerLayout.setVisibility(View.GONE);
 
+        /*edtSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.toString().isEmpty()) {
+                } else {
+                    filter(s.toString());
+                }
+            }
+        });*/
+
+    }
+
+    private void filter(String text) {
+        List<Note> filterList = new ArrayList<>();
+        for (Note model : notes) {
+            if (model.getTitle().toLowerCase().contains(text.toLowerCase())) {
+                filterList.add(model);
+            }
+        }
+        adapter.filterList(filterList);
     }
 
     @Override
@@ -106,10 +143,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             note1.setId(id);
             NotesViewModel notesViewModel = new ViewModelProvider(this).get(NotesViewModel.class);
             notesViewModel.update(note1);
-            Toast.makeText(this, "Note Updated", Toast.LENGTH_SHORT).show();
+            new Handler().postDelayed(() -> {
+                imgState.setVisibility(View.VISIBLE);
+                imgState.setImageResource(R.drawable.ic_baseline_done);
+            }, 2000);
         } else {
             Toast.makeText(this, "Insert NOT OK", Toast.LENGTH_SHORT).show();
         }
+
+        imgState.setVisibility(View.GONE);
     }
 
     private void setUpRecyclerView() {
@@ -118,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         recyclerView.setHasFixedSize(true);
         recyclerView.smoothScrollToPosition(0);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        adapter = new NoteAdapter(this, notes, this);
+        adapter = new NoteAdapter(this, notes, this, this);
 //        notesAdapter = new NotesAdapter(this, notes);
         recyclerView.setAdapter(adapter);
 //        notesAdapter.submitList(notes);
@@ -126,7 +168,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onListenerUpdate(Note note, int position) {
-        noteClickedPosition = position;
         Intent intent = new Intent(this, CreateNoteActivity.class);
         intent.putExtra("isViewOrUpdate", true);
         intent.putExtra(CreateNoteActivity.ID, note.getId());
@@ -138,6 +179,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         intent.putExtra(IMAGE_PATH_U, note.getImagePath());
         intent.putExtra(COLOR_U, note.getColor());
         startActivityForResult(intent, REQUEST_CODE_UPDATE_NOTE);
+    }
+
+    @Override
+    public void onListenerDelete(Note note) {
+        imgState.setVisibility(View.VISIBLE);
+        NotesViewModel notesViewModel = new ViewModelProvider(this).get(NotesViewModel.class);
+        imgState.setOnClickListener(v -> {
+            notesViewModel.delete(note);
+            Toast.makeText(MainActivity.this, "Delete Ok", Toast.LENGTH_SHORT).show();
+            imgState.setVisibility(View.GONE);
+        });
+
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -172,7 +225,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void bindViews(ActivityMainBinding mainBinding) {
+        imgState = mainBinding.imgState;
         txtTime = mainBinding.txtTime;
+        edtSearch = mainBinding.edtSearch;
         recyclerView = mainBinding.rvNotes;
         shimmerLayout = mainBinding.shimmerLayout;
         fbAdd = mainBinding.fbAddNotes;
