@@ -15,6 +15,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Patterns;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -408,7 +409,6 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
             txtSave.setOnClickListener(v -> {
                 saveNote();
                 dialogOnBack.dismiss();
-
             });
 
             txtCancel.setOnClickListener(v -> dialogOnBack.dismiss());
@@ -416,6 +416,7 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
             dialogOnBack = builder.create();
             if (dialogOnBack.getWindow() != null) {
                 dialogOnBack.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+                dialogOnBack.getWindow().setGravity(Gravity.BOTTOM);
             }
         }
         dialogOnBack.show();

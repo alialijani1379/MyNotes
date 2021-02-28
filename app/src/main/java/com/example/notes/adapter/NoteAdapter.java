@@ -22,6 +22,7 @@ import com.example.notes.customobject.TextViewCustom;
 import com.example.notes.databinding.ItemNotesBinding;
 import com.example.notes.entities.Note;
 import com.flaviofaria.kenburnsview.KenBurnsView;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,7 +88,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NotesViewHolde
         ItemNotesBinding itemNotesBinding;
         TextViewCustom txtNoteSubtitle;
         LinearLayout layoutNote;
-        KenBurnsView imgNote;
+        RoundedImageView imgNote;
 
         public NotesViewHolder(ItemNotesBinding itemNotesBinding) {
             super(itemNotesBinding.getRoot());
