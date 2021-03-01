@@ -32,6 +32,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import io.supercharge.shimmerlayout.ShimmerLayout;
@@ -70,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fbAdd.setOnClickListener(this);
 
         shimmerLayout.startShimmerAnimation();
+        Collections.sort(notes);
         setUpRecyclerView();
         notesViewModel = new ViewModelProvider(this).get(NotesViewModel.class);
         notesViewModel.getAllNotes().observe(this, notes -> adapter.setNotes(notes));
@@ -108,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 filterList.add(model);
             }
         }
+
         adapter.filterList(filterList);
     }
 

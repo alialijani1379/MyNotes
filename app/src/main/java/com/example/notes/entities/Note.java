@@ -1,15 +1,12 @@
 package com.example.notes.entities;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.io.Serializable;
-
 @Entity(tableName = "notes")
-public class Note {
+public class Note implements Comparable<Note> {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
@@ -116,5 +113,10 @@ public class Note {
     @Override
     public String toString() {
         return title + " : " + dateTime;
+    }
+
+    @Override
+    public int compareTo(Note o) {
+        return this.id - o.getId();
     }
 }
