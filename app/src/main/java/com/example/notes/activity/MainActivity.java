@@ -111,7 +111,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 filterList.add(model);
             }
         }
-
         adapter.filterList(filterList);
     }
 
