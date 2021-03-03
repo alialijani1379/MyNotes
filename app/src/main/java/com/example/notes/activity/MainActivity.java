@@ -61,7 +61,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private NotesViewModel notesViewModel;
     private NotesAdapter notesAdapter;
     private NoteAdapter adapter;
-
     //</editor-fold>
 
     @Override
