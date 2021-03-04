@@ -136,11 +136,8 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
         String note = edtNote.getText().toString().trim();
         String dateTime = txtDate.getText().toString().trim();
 
-        if (title.isEmpty()) {
-            Toast.makeText(this, "Title can't be empty", Toast.LENGTH_SHORT).show();
-            return;
-        } else if (noteSubtitle.isEmpty() && note.isEmpty()) {
-            Toast.makeText(this, "Note can't be empty", Toast.LENGTH_SHORT).show();
+        if (title.isEmpty() && noteSubtitle.isEmpty()) {
+            Toast.makeText(this, "Title or Subtitle can not be empty", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -208,7 +205,7 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
 
         bottomSheet.findViewById(R.id.view_color1).setOnClickListener(v -> {
             selectedNoteColor = "#535353";
-            imageColor1.setImageResource(R.drawable.ic_baseline_done);
+            imageColor1.setImageResource(R.drawable.ic_check_mark);
             imageColor2.setImageResource(0);
             imageColor3.setImageResource(0);
             imageColor4.setImageResource(0);
@@ -219,7 +216,7 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
         bottomSheet.findViewById(R.id.view_color2).setOnClickListener(v -> {
             selectedNoteColor = "#F44336";
             imageColor1.setImageResource(0);
-            imageColor2.setImageResource(R.drawable.ic_baseline_done);
+            imageColor2.setImageResource(R.drawable.ic_check_mark);
             imageColor3.setImageResource(0);
             imageColor4.setImageResource(0);
             imageColor5.setImageResource(0);
@@ -230,7 +227,7 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
             selectedNoteColor = "#0377AC";
             imageColor1.setImageResource(0);
             imageColor2.setImageResource(0);
-            imageColor3.setImageResource(R.drawable.ic_baseline_done);
+            imageColor3.setImageResource(R.drawable.ic_check_mark);
             imageColor4.setImageResource(0);
             imageColor5.setImageResource(0);
             setSubtitleIndicatorColor();
@@ -241,7 +238,7 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
             imageColor1.setImageResource(0);
             imageColor2.setImageResource(0);
             imageColor3.setImageResource(0);
-            imageColor4.setImageResource(R.drawable.ic_baseline_done);
+            imageColor4.setImageResource(R.drawable.ic_check_mark);
             imageColor5.setImageResource(0);
             setSubtitleIndicatorColor();
         });
@@ -252,7 +249,7 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
             imageColor2.setImageResource(0);
             imageColor3.setImageResource(0);
             imageColor4.setImageResource(0);
-            imageColor5.setImageResource(R.drawable.ic_baseline_done);
+            imageColor5.setImageResource(R.drawable.ic_check_mark);
             setSubtitleIndicatorColor();
         });
 
@@ -296,13 +293,17 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
             bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
             try {
                 Intent share = new Intent(Intent.ACTION_SEND);
-//                share.setType("text/plain");
-                share.setType("image/*"); //jpeg-
+                share.setType("text/plain");
+//                share.setType("image/*"); //jpeg-png
                 share.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // FLAG_GRANT_READ_URI_PERMISSION
+//                if (link == null) {
+//                    link.replace("", " ");
+//                }
                 String shareBody = title + "\n" + "\n" + subtitle + "\n" + "\n" + note + "\n" + link + "\n" + date;
                 share.putExtra(Intent.EXTRA_SUBJECT, "MyNote");
                 share.putExtra(Intent.EXTRA_TEXT, shareBody);
-                share.putExtra(Intent.EXTRA_STREAM, selectedImagePath);
+                String imageName = selectedImagePath.substring(selectedImagePath.lastIndexOf("/") + 1);
+//                share.putExtra(Intent.EXTRA_STREAM, imageName);
                 startActivity(Intent.createChooser(share, "Share Note"));
             } catch (Exception e) {
                 e.printStackTrace();

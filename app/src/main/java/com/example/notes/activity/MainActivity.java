@@ -32,7 +32,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -52,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static final int REQUEST_CODE_UPDATE_NOTE = 2;
     private ActivityMainBinding mainBinding;
     private ImageView imgState;
+    private ImageView imgReverse;
     private TextViewCustom txtTime;
     private EditText edtSearch;
     private RecyclerView recyclerView;
@@ -70,12 +70,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bindViews(mainBinding);
         setTime();
         fbAdd.setOnClickListener(this);
-
         shimmerLayout.startShimmerAnimation();
-        Collections.sort(notes);
+
         setUpRecyclerView();
         notesViewModel = new ViewModelProvider(this).get(NotesViewModel.class);
-        notesViewModel.getAllNotes().observe(this, notes -> adapter.setNotes(notes));
+        notesViewModel.getAllNotes().observe(this, notes -> {
+            adapter.setNotes(notes);
+            imgReverse.setOnClickListener(v -> {
+                Collections.reverse(notes);
+                adapter.notifyDataSetChanged();
+            });
+
+        });
+
         shimmerLayout.stopShimmerAnimation();
         shimmerLayout.setVisibility(View.GONE);
 
@@ -97,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                    filter(s.toString());
 //                }
                 if (notes.size() != 0) {
-                adapter.searchNotes(s.toString());
+                    adapter.searchNotes(s.toString());
                 }
             }
         });
@@ -232,6 +239,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void bindViews(ActivityMainBinding mainBinding) {
         imgState = mainBinding.imgState;
+        imgReverse = mainBinding.imgReverse;
         txtTime = mainBinding.txtTime;
         edtSearch = mainBinding.edtSearch;
         recyclerView = mainBinding.rvNotes;

@@ -42,7 +42,7 @@
                 android:layout_width="@dimen/_35sdp"
                 android:layout_height="@dimen/_35sdp"
                 android:padding="@dimen/_10sdp"
-                android:src="@drawable/ic_baseline_done"
+                android:src="@drawable/ic_check_mark"
                 app:tint="@color/white" />
 
         </FrameLayout>
@@ -146,9 +146,9 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="@dimen/_23sdp"
-            android:layout_height="@dimen/_23sdp"
-            android:src="@drawable/ic_baseline_wallpaper"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:src="@drawable/ic_image"
             app:tint="@color/white" />
 
         <com.example.notes.customobject.TextViewCustom
@@ -169,9 +169,9 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="@dimen/_23sdp"
-            android:layout_height="@dimen/_23sdp"
-            android:src="@drawable/ic_baseline_link"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:src="@drawable/ic_link"
             app:tint="@color/white" />
 
         <TextView
@@ -192,9 +192,9 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="@dimen/_23sdp"
-            android:layout_height="@dimen/_23sdp"
-            android:src="@drawable/ic_baseline_share"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:src="@drawable/ic_share"
             app:tint="@color/white" />
 
         <TextView
