@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Notes</string>
-    <string name="my_notes" translatable="false">یاد داشت های من</string>
-    <string name="search_notes">جستوجوی یاد داشت</string>
+    <string name="my_notes" translatable="false">یادداشت های من</string>
+    <string name="search_notes">جستوجوی یادداشت</string>
     <string name="tue_february_9">Tue, February 9</string>
-    <string name="note_title">عنوان یاد داشت</string>
-    <string name="notes">یاد داشت</string>
-    <string name="type_note_here">یاد داشت را اینجا بنویسید …</string>
+    <string name="note_title">عنوان یادداشت</string>
+    <string name="notes">یادداشت</string>
+    <string name="type_note_here">یادداشت را اینجا بنویسید …</string>
     <string name="good_morning">صبح بخیر</string>
     <string name="good_night">شب بخیر</string>
     <string name="good_afternoon">ظهر بخیر</string>
@@ -23,4 +23,5 @@
     <string name="save_your_changes_or_discard_them">تغییرات خود را ذخیره کنید یا آنها را کنار بگذارید؟</string>
     <string name="discard">دور انداختن</string>
     <string name="save">ذخیره</string>
+    <string name="share_note">اشتراک گذاری یادداشت</string>
 </resources>

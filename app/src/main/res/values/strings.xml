@@ -22,4 +22,5 @@
     <string name="save_your_changes_or_discard_them">Save your changes or discard them?</string>
     <string name="discard">Discard</string>
     <string name="save">Save</string>
+    <string name="share_note">Share Note</string>
 </resources>
