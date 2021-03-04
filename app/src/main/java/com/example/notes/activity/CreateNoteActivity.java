@@ -290,6 +290,14 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
             showAddUrlDialog();
         });
 
+        bottomSheet.findViewById(R.id.layout_share_note).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+
+            }
+        });
+
     }
 
     @Override
