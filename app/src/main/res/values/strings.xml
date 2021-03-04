@@ -23,4 +23,5 @@
     <string name="discard">Discard</string>
     <string name="save">Save</string>
     <string name="share_note">Share Note</string>
+    <string name="sorry_can_not_be_share">Sorry can not be share</string>
 </resources>

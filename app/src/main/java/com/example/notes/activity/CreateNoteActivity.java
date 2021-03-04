@@ -75,8 +75,10 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
     private String selectedNoteColor;
     private String selectedImagePath;
     private String title;
-    private String noteSubtitle;
+    private String subtitle;
     private String note;
+    private String date;
+    private String link;
     private String color;
     private AlertDialog dialogAddUrl;
     private AlertDialog dialogOnBack;
@@ -104,11 +106,11 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
     private void setUpdateNote() {
         Intent intent = getIntent();
         if (intent.hasExtra(ID)) {
-            String title = intent.getStringExtra(MainActivity.TITLE_U);
-            String subtitle = intent.getStringExtra(MainActivity.SUBTITLE_U);
-            String note = intent.getStringExtra(MainActivity.NOTE_U);
-            String date = intent.getStringExtra(MainActivity.DATE_U);
-            String link = intent.getStringExtra(MainActivity.WEB_LINK_U);
+            title = intent.getStringExtra(MainActivity.TITLE_U);
+            subtitle = intent.getStringExtra(MainActivity.SUBTITLE_U);
+            note = intent.getStringExtra(MainActivity.NOTE_U);
+            date = intent.getStringExtra(MainActivity.DATE_U);
+            link = intent.getStringExtra(MainActivity.WEB_LINK_U);
             String img = intent.getStringExtra(MainActivity.IMAGE_PATH_U);
             color = intent.getStringExtra(MainActivity.COLOR_U);
             edtNoteTitle.setText(title);
@@ -290,11 +292,21 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
             showAddUrlDialog();
         });
 
-        bottomSheet.findViewById(R.id.layout_share_note).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-
+        bottomSheet.findViewById(R.id.layout_share_note).setOnClickListener(v -> {
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            try {
+                Intent share = new Intent(Intent.ACTION_SEND);
+//                share.setType("text/plain");
+                share.setType("image/*"); //jpeg-
+                share.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // FLAG_GRANT_READ_URI_PERMISSION
+                String shareBody = title + "\n" + "\n" + subtitle + "\n" + "\n" + note + "\n" + link + "\n" + date;
+                share.putExtra(Intent.EXTRA_SUBJECT, "MyNote");
+                share.putExtra(Intent.EXTRA_TEXT, shareBody);
+                share.putExtra(Intent.EXTRA_STREAM, selectedImagePath);
+                startActivity(Intent.createChooser(share, "Share Note"));
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(this, R.string.sorry_can_not_be_share, Toast.LENGTH_SHORT).show();
             }
         });
 

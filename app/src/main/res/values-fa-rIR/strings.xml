@@ -24,4 +24,5 @@
     <string name="discard">دور انداختن</string>
     <string name="save">ذخیره</string>
     <string name="share_note">اشتراک گذاری یادداشت</string>
+    <string name="sorry_can_not_be_share">با عرض پوزش امکان اشتراک گذاری وجود ندارد</string>
 </resources>
