@@ -82,6 +82,7 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
     private String color;
     private AlertDialog dialogAddUrl;
     private AlertDialog dialogOnBack;
+    private boolean flag = false;
     //</editor-fold>
 
     @Override
@@ -291,24 +292,7 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
 
         bottomSheet.findViewById(R.id.layout_share_note).setOnClickListener(v -> {
             bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-            try {
-                Intent share = new Intent(Intent.ACTION_SEND);
-                share.setType("text/plain");
-//                share.setType("image/*"); //jpeg-png
-                share.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // FLAG_GRANT_READ_URI_PERMISSION
-//                if (link == null) {
-//                    link.replace("", " ");
-//                }
-                String shareBody = title + "\n" + "\n" + subtitle + "\n" + "\n" + note + "\n" + link + "\n" + date;
-                share.putExtra(Intent.EXTRA_SUBJECT, "MyNote");
-                share.putExtra(Intent.EXTRA_TEXT, shareBody);
-                String imageName = selectedImagePath.substring(selectedImagePath.lastIndexOf("/") + 1);
-//                share.putExtra(Intent.EXTRA_STREAM, imageName);
-                startActivity(Intent.createChooser(share, "Share Note"));
-            } catch (Exception e) {
-                e.printStackTrace();
-                Toast.makeText(this, R.string.sorry_can_not_be_share, Toast.LENGTH_SHORT).show();
-            }
+            setShare();
         });
 
     }
@@ -333,6 +317,27 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
                     }
                 }
             }
+        }
+    }
+
+    private void setShare(){
+        try {
+            Intent share = new Intent(Intent.ACTION_SEND);
+            share.setType("text/plain");
+//                share.setType("image/*"); //jpeg-png
+            share.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // FLAG_GRANT_READ_URI_PERMISSION
+//                if (link == null) {
+//                    link.replace("", " ");
+//                }
+            String shareBody = title + "\n" + "\n" + subtitle + "\n" + "\n" + note + "\n" + link + "\n" + date;
+            share.putExtra(Intent.EXTRA_SUBJECT, "MyNote");
+            share.putExtra(Intent.EXTRA_TEXT, shareBody);
+            String imageName = selectedImagePath.substring(selectedImagePath.lastIndexOf("/") + 1);
+//                share.putExtra(Intent.EXTRA_STREAM, imageName);
+            startActivity(Intent.createChooser(share, "Share Note"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, R.string.sorry_can_not_be_share, Toast.LENGTH_SHORT).show();
         }
     }
 

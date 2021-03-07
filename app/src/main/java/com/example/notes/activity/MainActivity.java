@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private NotesViewModel notesViewModel;
     private NotesAdapter notesAdapter;
     private NoteAdapter adapter;
+
     //</editor-fold>
 
     @Override
@@ -79,6 +80,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             imgReverse.setOnClickListener(v -> {
                 Collections.reverse(notes);
                 adapter.notifyDataSetChanged();
+
+
+
             });
 
         });
@@ -99,10 +103,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void afterTextChanged(Editable s) {
-//                if (s.toString().isEmpty()) {
-//                } else {
-//                    filter(s.toString());
-//                }
+//                        if (!(s.toString().trim().isEmpty())) {
+//                            filter(s.toString(), notes);
+//                        }
                 if (notes.size() != 0) {
                     adapter.searchNotes(s.toString());
                 }
@@ -111,10 +114,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void filter(String text) {
+    private void filter(String text, List<Note> notes) {
         List<Note> filterList = new ArrayList<>();
         for (Note model : notes) {
-            if (model.getTitle().toLowerCase().contains(text.toLowerCase())) {
+            if (model.getTitle().toLowerCase().contains(text.toLowerCase())
+                    || model.getSubtitle().toLowerCase().contains(text.toLowerCase())
+                    || model.getNoteText().toLowerCase().contains(text.toLowerCase())) {
                 filterList.add(model);
             }
         }
@@ -156,10 +161,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             note1.setId(id);
             NotesViewModel notesViewModel = new ViewModelProvider(this).get(NotesViewModel.class);
             notesViewModel.update(note1);
-            new Handler().postDelayed(() -> {
-                imgState.setVisibility(View.VISIBLE);
-                imgState.setImageResource(R.drawable.ic_baseline_done);
-            }, 2000);
+
+            imgState.setImageResource(R.drawable.ic_tick);
+
         } else {
             Toast.makeText(this, "Insert NOT OK", Toast.LENGTH_SHORT).show();
         }
