@@ -26,7 +26,7 @@
                 android:background="@drawable/bg_item_shimmer"
                 android:orientation="vertical">
 
-                <com.flaviofaria.kenburnsview.KenBurnsView
+                <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_100sdp"
                     android:adjustViewBounds="true"
@@ -83,7 +83,7 @@
                 android:background="@drawable/bg_item_shimmer"
                 android:orientation="vertical">
 
-                <com.flaviofaria.kenburnsview.KenBurnsView
+                <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_100sdp"
                     android:adjustViewBounds="true"

@@ -61,9 +61,9 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:$room_version"
     // LifeCycle
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    // kenburns
-    implementation 'com.flaviofaria:kenburnsview:1.0.7'
     // RoundedImageView
     implementation 'com.makeramen:roundedimageview:2.3.0'
+    // PhotoView
+    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
 
 }

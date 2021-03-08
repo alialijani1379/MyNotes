@@ -37,6 +37,7 @@ import androidx.databinding.DataBindingUtil;
 import com.example.notes.R;
 import com.example.notes.customobject.TextViewCustom;
 import com.example.notes.databinding.ActivityCreateNoteBinding;
+import com.github.chrisbanes.photoview.PhotoView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.io.FileNotFoundException;
@@ -62,7 +63,7 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
     private ActivityCreateNoteBinding createNoteBinding;
     private ImageView imgBack;
     private ImageView imgDone;
-    private ImageView imgNote;
+    private PhotoView imgNote;
     private ImageView imgRemoveImage;
     private ImageView imgRotate;
     private ImageView imgRemoveUrl;
@@ -414,7 +415,7 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
             String shareBody = title + "\n" + "\n" + subtitle + "\n" + "\n" + note + "\n" + link + "\n" + date;
             share.putExtra(Intent.EXTRA_SUBJECT, "MyNote");
             share.putExtra(Intent.EXTRA_TEXT, shareBody);
-            String imageName = selectedImagePath.substring(selectedImagePath.lastIndexOf("/") + 1);
+//            String imageName = selectedImagePath.substring(selectedImagePath.lastIndexOf("/") + 1);
 //                share.putExtra(Intent.EXTRA_STREAM, imageName);
             startActivity(Intent.createChooser(share, "Share Note"));
         } catch (Exception e) {

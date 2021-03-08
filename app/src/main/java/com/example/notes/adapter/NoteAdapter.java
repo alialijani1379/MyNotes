@@ -21,7 +21,6 @@ import com.example.notes.R;
 import com.example.notes.customobject.TextViewCustom;
 import com.example.notes.databinding.ItemNotesBinding;
 import com.example.notes.entities.Note;
-import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.ArrayList;

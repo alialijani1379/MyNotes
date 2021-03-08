@@ -41,6 +41,7 @@
                 android:id="@+id/img_color1"
                 android:layout_width="@dimen/_35sdp"
                 android:layout_height="@dimen/_35sdp"
+                android:contentDescription="@string/app_name"
                 android:padding="@dimen/_10sdp"
                 android:src="@drawable/ic_check_mark"
                 app:tint="@color/white" />
@@ -62,6 +63,7 @@
                 android:id="@+id/img_color2"
                 android:layout_width="@dimen/_35sdp"
                 android:layout_height="@dimen/_35sdp"
+                android:contentDescription="@string/app_name"
                 android:padding="@dimen/_10sdp"
                 app:tint="@color/white" />
 
@@ -82,6 +84,7 @@
                 android:id="@+id/img_color3"
                 android:layout_width="@dimen/_35sdp"
                 android:layout_height="@dimen/_35sdp"
+                android:contentDescription="@string/app_name"
                 android:padding="@dimen/_10sdp"
                 app:tint="@color/white" />
 
@@ -102,6 +105,7 @@
                 android:id="@+id/img_color4"
                 android:layout_width="@dimen/_35sdp"
                 android:layout_height="@dimen/_35sdp"
+                android:contentDescription="@string/app_name"
                 android:padding="@dimen/_10sdp"
                 app:tint="@color/white" />
 
@@ -122,6 +126,7 @@
                 android:id="@+id/img_color5"
                 android:layout_width="@dimen/_35sdp"
                 android:layout_height="@dimen/_35sdp"
+                android:contentDescription="@string/app_name"
                 android:padding="@dimen/_10sdp"
                 app:tint="@color/white" />
 
@@ -141,13 +146,16 @@
         android:id="@+id/layout_add_img"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_10sdp"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:paddingTop="@dimen/_10sdp"
+        android:paddingBottom="@dimen/_10sdp">
 
         <ImageView
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
+            android:contentDescription="@string/app_name"
             android:src="@drawable/ic_image"
             app:tint="@color/white" />
 
@@ -164,17 +172,20 @@
         android:id="@+id/layout_add_url"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_10sdp"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:paddingTop="@dimen/_10sdp"
+        android:paddingBottom="@dimen/_10sdp">
 
         <ImageView
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
+            android:contentDescription="@string/app_name"
             android:src="@drawable/ic_link"
             app:tint="@color/white" />
 
-        <TextView
+        <com.example.notes.customobject.TextViewCustom
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
@@ -187,17 +198,20 @@
         android:id="@+id/layout_share_note"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_10sdp"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:paddingTop="@dimen/_10sdp"
+        android:paddingBottom="@dimen/_10sdp">
 
         <ImageView
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
+            android:contentDescription="@string/app_name"
             android:src="@drawable/ic_share"
             app:tint="@color/white" />
 
-        <TextView
+        <com.example.notes.customobject.TextViewCustom
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"

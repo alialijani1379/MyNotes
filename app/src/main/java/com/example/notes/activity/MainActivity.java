@@ -3,7 +3,6 @@ package com.example.notes.activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -80,10 +79,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Collections.reverse(notes);
                 adapter.notifyDataSetChanged();
 
-
-
             });
-
         });
 
         shimmerLayout.stopShimmerAnimation();
