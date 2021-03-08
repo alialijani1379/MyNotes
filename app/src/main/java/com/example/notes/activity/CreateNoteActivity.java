@@ -14,6 +14,8 @@ import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -101,6 +103,78 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
         setUpdateNote();
         initBottomSheet();
         setSubtitleIndicatorColor();
+
+        edtNoteTitle.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!(s.toString().trim().isEmpty()))
+                    flag = true;
+            }
+        });
+
+        edtNoteSubtitle.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!(s.toString().trim().isEmpty()))
+                    flag = true;
+            }
+        });
+
+        edtNote.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!(s.toString().trim().isEmpty()))
+                    flag = true;
+            }
+        });
+
+        txtUrl.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!(s.toString().trim().isEmpty()))
+                    flag = true;
+            }
+        });
 
     }
 
@@ -320,7 +394,7 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
-    private void setShare(){
+    private void setShare() {
         try {
             Intent share = new Intent(Intent.ACTION_SEND);
             share.setType("text/plain");
@@ -468,7 +542,7 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
     public void onBackPressed() {
         if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
             bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-        } else if (!(edtNoteTitle.getText().toString().trim().isEmpty() && edtNoteSubtitle.getText().toString().trim().isEmpty())) {
+        } else if (flag) {
             showOnBackDialog();
         } else {
             super.onBackPressed();
