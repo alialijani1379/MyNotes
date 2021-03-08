@@ -64,6 +64,7 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
     private ImageView imgDone;
     private ImageView imgNote;
     private ImageView imgRemoveImage;
+    private ImageView imgRotate;
     private ImageView imgRemoveUrl;
     private TextView txtDate;
     private TextViewCustom txtUrl;
@@ -100,6 +101,7 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
 
         imgRemoveUrl.setOnClickListener(this);
         imgRemoveImage.setOnClickListener(this);
+        imgRotate.setOnClickListener(this);
         setUpdateNote();
         initBottomSheet();
         setSubtitleIndicatorColor();
@@ -121,7 +123,6 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
                     flag = true;
             }
         });
-
         edtNoteSubtitle.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -139,7 +140,6 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
                     flag = true;
             }
         });
-
         edtNote.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -157,7 +157,6 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
                     flag = true;
             }
         });
-
         txtUrl.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -200,6 +199,7 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
             if (!(Objects.equals(img, ""))) {
                 imgNote.setVisibility(View.VISIBLE);
                 imgRemoveImage.setVisibility(View.VISIBLE);
+                imgRotate.setVisibility(View.VISIBLE);
             }
             selectedImagePath = img;
         }
@@ -255,7 +255,11 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
                 imgNote.setImageBitmap(null);
                 imgNote.setVisibility(View.GONE);
                 imgRemoveImage.setVisibility(View.GONE);
+                imgRotate.setVisibility(View.GONE);
                 selectedImagePath = "";
+                break;
+            case R.id.img_rotate:
+                imgNote.setRotation(imgNote.getRotation() + 90);
                 break;
         }
     }
@@ -382,8 +386,12 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
                         InputStream inputStream = getContentResolver().openInputStream(selectedImageUri);
                         Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                         imgNote.setImageBitmap(bitmap);
+                        imgNote.setScaleType(ImageView.ScaleType.FIT_XY);
+                        imgNote.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 510, 500,
+                                false));
                         imgNote.setVisibility(View.VISIBLE);
                         imgRemoveImage.setVisibility(View.VISIBLE);
+                        imgRotate.setVisibility(View.VISIBLE);
 
                         selectedImagePath = getPathFromUri(selectedImageUri);
                     } catch (FileNotFoundException e) {
@@ -527,6 +535,7 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
         imgDone = createNoteBinding.imgDone;
         imgNote = createNoteBinding.imgNote;
         imgRemoveImage = createNoteBinding.imgRemoveImage;
+        imgRotate = createNoteBinding.imgRotate;
         imgRemoveUrl = createNoteBinding.imgRemoveUrl;
         txtDate = createNoteBinding.txtDate;
         txtUrl = createNoteBinding.txtUrl;

@@ -125,6 +125,18 @@
                     app:layout_constraintEnd_toEndOf="@id/img_note"
                     app:layout_constraintTop_toTopOf="@id/img_note" />
 
+                <ImageView
+                    android:id="@+id/img_rotate"
+                    android:layout_width="@dimen/_23sdp"
+                    android:layout_height="@dimen/_23sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:src="@drawable/ic_refreshing"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toStartOf="@id/img_remove_image"
+                    app:layout_constraintTop_toTopOf="@id/img_remove_image"
+                    app:tint="@color/white"
+                    android:contentDescription="@string/app_name" />
+
                 <LinearLayout
                     android:id="@+id/layout_url"
                     android:layout_width="match_parent"
