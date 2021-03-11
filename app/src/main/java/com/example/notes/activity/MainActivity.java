@@ -201,6 +201,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             notesViewModel.delete(note);
             Toast.makeText(MainActivity.this, "Delete Ok", Toast.LENGTH_SHORT).show();
             imgState.setVisibility(View.GONE);
+
         });
 
     }
