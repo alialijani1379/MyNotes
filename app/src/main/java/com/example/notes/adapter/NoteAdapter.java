@@ -64,7 +64,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NotesViewHolde
         holder.itemView.setOnClickListener(v -> listenerUpdate.onListenerUpdate(note, position));
         holder.itemView.setOnLongClickListener(v -> {
             listenerDelete.onListenerDelete(note);
-            return false;
+            return true;
         });
     }
 
