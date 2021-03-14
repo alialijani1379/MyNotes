@@ -1,6 +1,7 @@
 package com.example.notes.activity;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private NotesViewModel notesViewModel;
     private NotesAdapter notesAdapter;
     private NoteAdapter adapter;
+    private AlertDialog dialogDelete;
     //</editor-fold>
 
     @Override
