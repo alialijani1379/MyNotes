@@ -53,26 +53,32 @@
 
         <com.example.notes.customobject.TextViewCustom
             android:id="@+id/txt_add_url"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
             android:layout_marginEnd="@dimen/_8sdp"
+            android:gravity="center"
             android:paddingBottom="@dimen/_8sdp"
             android:text="@string/add"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/txt_cancel"
             app:layout_constraintTop_toBottomOf="@id/edt_url" />
 
         <com.example.notes.customobject.TextViewCustom
             android:id="@+id/txt_cancel"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_16sdp"
+            android:gravity="center"
             android:paddingBottom="@dimen/_8sdp"
             android:text="@string/cancel"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/txt_add_url" />
+            app:layout_constraintEnd_toStartOf="@+id/txt_add_url"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

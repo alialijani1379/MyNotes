@@ -35,11 +35,11 @@
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/textViewCustom"
+            app:layout_constraintStart_toEndOf="@+id/txt_cancel"
             app:layout_constraintTop_toBottomOf="@+id/txt_are_you_sure" />
 
         <com.example.notes.customobject.TextViewCustom
-            android:id="@+id/textViewCustom"
+            android:id="@+id/txt_cancel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
