@@ -22,7 +22,8 @@
             android:src="@drawable/ic_link"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/white" />
+            app:tint="@color/white"
+            android:contentDescription="@string/app_name" />
 
         <com.example.notes.customobject.TextViewCustom
             android:layout_width="wrap_content"
