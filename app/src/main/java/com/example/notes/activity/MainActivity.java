@@ -204,7 +204,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         imgState.setVisibility(View.VISIBLE);
         NotesViewModel notesViewModel = new ViewModelProvider(this).get(NotesViewModel.class);
         imgState.setOnClickListener(v -> showDialogDelete(notesViewModel, note));
-
     }
 
     @SuppressLint("NonConstantResourceId")
