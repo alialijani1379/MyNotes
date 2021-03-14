@@ -33,7 +33,7 @@
             app:layout_constraintTop_toBottomOf="@id/txt_are_you_sure">
 
             <com.example.notes.customobject.TextViewCustom
-                android:id="@+id/txt_cancel"
+                android:id="@+id/txt_cancel_note"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

@@ -203,12 +203,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onListenerDelete(Note note) {
         imgState.setVisibility(View.VISIBLE);
         NotesViewModel notesViewModel = new ViewModelProvider(this).get(NotesViewModel.class);
-        imgState.setOnClickListener(v -> {
-            notesViewModel.delete(note);
-            Toast.makeText(MainActivity.this, "Delete Ok", Toast.LENGTH_SHORT).show();
-            imgState.setVisibility(View.GONE);
-
-        });
+        imgState.setOnClickListener(v -> showDialogDelete(notesViewModel, note));
 
     }
 
@@ -224,38 +219,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-//    private void showDialogDelete() {
-//        if (dialogDelete == null) {
-//            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//            View view = LayoutInflater.from(this).inflate(R.layout.item_on_back_presed, null);
-//            if (view.getParent() != null) {
-//                ((ViewGroup) view.getParent()).removeView(view);
-//            }
-//
-//            TextViewCustom txtCancel = view.findViewById(R.id.txt_cancel);
-//            TextViewCustom txtDelete = view.findViewById(R.id.txt_delete);
-//
-//            txtDiscard.setOnClickListener(v -> {
-//                Intent intent = new Intent(this, MainActivity.class);
-//                startActivity(intent);
-//                finish();
-//            });
-//
-//            txtSave.setOnClickListener(v -> {
-//                saveNote();
-//                dialogDelete.dismiss();
-//            });
-//
-//            txtCancel.setOnClickListener(v -> dialogDelete.dismiss());
-//            builder.setView(view);
-//            dialogDelete = builder.create();
-//            if (dialogDelete.getWindow() != null) {
-//                dialogDelete.getWindow().setBackgroundDrawable(new ColorDrawable(0));
-//                dialogDelete.getWindow().setGravity(Gravity.BOTTOM);
-//            }
-//        }
-//        dialogDelete.show();
-//    }
+    private void showDialogDelete(NotesViewModel notesViewModel, Note note) {
+        if (dialogDelete == null) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            View view = LayoutInflater.from(this).inflate(R.layout.item_delete_note, null);
+            if (view.getParent() != null) {
+                ((ViewGroup) view.getParent()).removeView(view);
+            }
+
+            TextViewCustom txtCancel = view.findViewById(R.id.txt_cancel_note);
+            TextViewCustom txtDelete = view.findViewById(R.id.txt_delete_note);
+
+            txtDelete.setOnClickListener(v -> {
+                notesViewModel.delete(note);
+                dialogDelete.dismiss();
+                imgState.setVisibility(View.GONE);
+            });
+
+            txtCancel.setOnClickListener(v -> dialogDelete.dismiss());
+            builder.setView(view);
+            dialogDelete = builder.create();
+            if (dialogDelete.getWindow() != null) {
+                dialogDelete.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+                dialogDelete.getWindow().setGravity(Gravity.BOTTOM);
+            }
+        }
+        dialogDelete.show();
+    }
 
     private void setTime() {
         Calendar calendar = Calendar.getInstance();
