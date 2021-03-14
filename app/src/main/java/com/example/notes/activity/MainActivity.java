@@ -3,10 +3,14 @@ package com.example.notes.activity;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -219,6 +223,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
+
+//    private void showDialogDelete() {
+//        if (dialogDelete == null) {
+//            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//            View view = LayoutInflater.from(this).inflate(R.layout.item_on_back_presed, null);
+//            if (view.getParent() != null) {
+//                ((ViewGroup) view.getParent()).removeView(view);
+//            }
+//
+//            TextViewCustom txtCancel = view.findViewById(R.id.txt_cancel);
+//            TextViewCustom txtDelete = view.findViewById(R.id.txt_delete);
+//
+//            txtDiscard.setOnClickListener(v -> {
+//                Intent intent = new Intent(this, MainActivity.class);
+//                startActivity(intent);
+//                finish();
+//            });
+//
+//            txtSave.setOnClickListener(v -> {
+//                saveNote();
+//                dialogDelete.dismiss();
+//            });
+//
+//            txtCancel.setOnClickListener(v -> dialogDelete.dismiss());
+//            builder.setView(view);
+//            dialogDelete = builder.create();
+//            if (dialogDelete.getWindow() != null) {
+//                dialogDelete.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+//                dialogDelete.getWindow().setGravity(Gravity.BOTTOM);
+//            }
+//        }
+//        dialogDelete.show();
+//    }
 
     private void setTime() {
         Calendar calendar = Calendar.getInstance();
