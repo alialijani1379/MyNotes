@@ -11,6 +11,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -68,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private NoteAdapter adapter;
     private AlertDialog dialogDelete;
     private LottieAnimationView lottie;
+    private Animation animLottie;
     //</editor-fold>
 
     @Override
@@ -85,6 +88,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             adapter.setNotes(notes);
             if (notes.size() == 0) {
                 lottie.setVisibility(View.VISIBLE);
+                animLottie = AnimationUtils.loadAnimation(this, R.anim.anim_lottie);
+                lottie.setAnimation(animLottie);
             } else {
                 lottie.setVisibility(View.GONE);
             }
