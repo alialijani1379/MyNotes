@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.notes.Interface.ListenerDelete;
 import com.example.notes.Interface.ListenerUpdate;
 import com.example.notes.R;
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private NotesAdapter notesAdapter;
     private NoteAdapter adapter;
     private AlertDialog dialogDelete;
+    private LottieAnimationView lottie;
     //</editor-fold>
 
     @Override
@@ -81,13 +83,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         notesViewModel = new ViewModelProvider(this).get(NotesViewModel.class);
         notesViewModel.getAllNotes().observe(this, notes -> {
             adapter.setNotes(notes);
+            if (notes.size() == 0) {
+                lottie.setVisibility(View.VISIBLE);
+            } else {
+                lottie.setVisibility(View.GONE);
+            }
             imgReverse.setOnClickListener(v -> {
                 Collections.reverse(notes);
                 adapter.notifyDataSetChanged();
-
             });
         });
-
         shimmerLayout.stopShimmerAnimation();
         shimmerLayout.setVisibility(View.GONE);
 
@@ -203,7 +208,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onListenerDelete(Note note) {
         imgState.setVisibility(View.VISIBLE);
         NotesViewModel notesViewModel = new ViewModelProvider(this).get(NotesViewModel.class);
-        imgState.setOnClickListener(v -> showDialogDelete(notesViewModel, note));
+        imgState.setOnClickListener(v -> {
+            notesViewModel.delete(note);
+            imgState.setVisibility(View.GONE);
+//            showDialogDelete(notesViewModel, note);
+        });
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -231,6 +240,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             txtDelete.setOnClickListener(v -> {
                 notesViewModel.delete(note);
+                Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
                 dialogDelete.dismiss();
                 imgState.setVisibility(View.GONE);
             });
@@ -273,6 +283,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         recyclerView = mainBinding.rvNotes;
         shimmerLayout = mainBinding.shimmerLayout;
         fbAdd = mainBinding.fbAddNotes;
+        lottie = mainBinding.lottieAnimation;
     }
 
 }
