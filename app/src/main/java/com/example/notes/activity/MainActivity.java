@@ -213,11 +213,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onListenerDelete(Note note) {
         imgState.setVisibility(View.VISIBLE);
         NotesViewModel notesViewModel = new ViewModelProvider(this).get(NotesViewModel.class);
-        imgState.setOnClickListener(v -> {
-            notesViewModel.delete(note);
-            imgState.setVisibility(View.GONE);
-//            showDialogDelete(notesViewModel, note);
-        });
+        imgState.setOnClickListener(v -> showDialogDelete(notesViewModel, note));
     }
 
     @SuppressLint("NonConstantResourceId")
