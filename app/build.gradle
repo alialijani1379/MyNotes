@@ -65,5 +65,8 @@ dependencies {
     implementation 'com.makeramen:roundedimageview:2.3.0'
     // PhotoView
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
+    // Lottie
+    def lottieVersion = "3.4.4"
+    implementation "com.airbnb.android:lottie:$lottieVersion"
 
 }
