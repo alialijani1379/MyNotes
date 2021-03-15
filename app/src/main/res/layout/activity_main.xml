@@ -18,7 +18,8 @@
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/white" />
+            app:tint="@color/white"
+            android:contentDescription="@string/app_name" />
 
         <com.example.notes.customobject.TextViewCustom
             android:id="@+id/txt_my_notes"
@@ -52,15 +53,16 @@
             app:layout_constraintBottom_toBottomOf="@id/edt_search"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/edt_search"
-            app:tint="@color/white" />
+            app:tint="@color/white"
+            android:contentDescription="@string/app_name" />
 
         <com.example.notes.customobject.EditTextCustom
             android:id="@+id/edt_search"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_14sdp"
-            android:layout_marginEnd="@dimen/_7sdp"
             android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_7sdp"
             android:background="@drawable/shape_edt"
             android:drawableStart="@drawable/ic_baseline_search"
             android:drawablePadding="@dimen/_8sdp"
@@ -74,6 +76,17 @@
             app:layout_constraintEnd_toStartOf="@+id/img_reverse"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txt_time" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie_animation"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edt_search"
+            android:layout_marginTop="@dimen/_16sdp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/lottie_note" />
 
         <io.supercharge.shimmerlayout.ShimmerLayout
             android:id="@+id/shimmer_layout"
