@@ -546,6 +546,7 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
         layoutUrl = createNoteBinding.layoutUrl;
         viewSubtitleIndicator = createNoteBinding.viewSubtitleIndicator;
         bottomSheet = findViewById(R.id.bottom_sheet);
+
     }
 
     @Override

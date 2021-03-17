@@ -41,6 +41,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import io.supercharge.shimmerlayout.ShimmerLayout;
 
@@ -71,7 +73,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private AlertDialog dialogDelete;
     private LottieAnimationView lottie;
     private Animation animLottie;
-
     //</editor-fold>
 
     @Override
@@ -175,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             notesViewModel.update(note1);
 
             imgState.setImageResource(R.drawable.ic_tick);
-
+            imgState.setVisibility(View.VISIBLE);
         } else {
             Toast.makeText(this, "Insert NOT OK", Toast.LENGTH_SHORT).show();
         }
@@ -214,7 +215,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onListenerDelete(Note note) {
         imgState.setVisibility(View.VISIBLE);
         NotesViewModel notesViewModel = new ViewModelProvider(this).get(NotesViewModel.class);
-        imgState.setOnClickListener(v -> showDialogDelete(notesViewModel, note));
+        imgState.setOnClickListener(v -> notesViewModel.delete(note));
+//        imgState.setOnClickListener(v -> showDialogDelete(notesViewModel, note));
     }
 
     @SuppressLint("NonConstantResourceId")
