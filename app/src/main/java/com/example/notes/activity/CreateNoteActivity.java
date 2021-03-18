@@ -87,6 +87,7 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
     private AlertDialog dialogAddUrl;
     private AlertDialog dialogOnBack;
     private boolean flag = false;
+
     //</editor-fold>
 
     @Override
@@ -546,7 +547,6 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
         layoutUrl = createNoteBinding.layoutUrl;
         viewSubtitleIndicator = createNoteBinding.viewSubtitleIndicator;
         bottomSheet = findViewById(R.id.bottom_sheet);
-
     }
 
     @Override
