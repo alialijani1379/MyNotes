@@ -87,7 +87,6 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
     private AlertDialog dialogAddUrl;
     private AlertDialog dialogOnBack;
     private boolean flag = false;
-
     //</editor-fold>
 
     @Override
