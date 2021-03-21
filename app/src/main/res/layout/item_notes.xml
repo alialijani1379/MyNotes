@@ -14,59 +14,59 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_12sdp"
         android:layout_marginHorizontal="@dimen/_4sdp"
-        app:cardCornerRadius="@dimen/_10sdp"
-        app:cardBackgroundColor="@color/color_item_notes">
+        android:layout_marginTop="@dimen/_12sdp"
+        app:cardBackgroundColor="@color/color_item_notes"
+        app:cardCornerRadius="@dimen/_10sdp">
 
-    <LinearLayout
-        android:id="@+id/layout_notes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_item_rv_main"
-        android:orientation="vertical">
-
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/img_note"
+        <LinearLayout
+            android:id="@+id/layout_notes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:visibility="gone" />
+            android:background="@drawable/bg_item_rv_main"
+            android:orientation="vertical">
 
-        <com.example.notes.customobject.TextViewCustom
-            android:id="@+id/txt_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:layout_marginTop="@dimen/_4sdp"
-            android:layout_marginEnd="@dimen/_8sdp"
-            android:text="@{note.title,default=note_title}"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_12sdp" />
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/img_note"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:visibility="gone" />
 
-        <com.example.notes.customobject.TextViewCustom
-            android:id="@+id/txt_subtitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:layout_marginTop="@dimen/_4sdp"
-            android:layout_marginEnd="@dimen/_8sdp"
-            android:text="@{note.subtitle,default=notes_subtitle}"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_10sdp" />
+            <com.example.notes.customobject.TextViewCustom
+                android:id="@+id/txt_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:text="@{note.title,default=note_title}"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12sdp" />
 
-        <com.example.notes.customobject.TextViewCustom
-            android:id="@+id/txt_date_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:layout_marginEnd="@dimen/_8sdp"
-            android:text="@{note.dateTime}"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_7sdp" />
+            <com.example.notes.customobject.TextViewCustom
+                android:id="@+id/txt_subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:text="@{note.subtitle,default=notes_subtitle}"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_10sdp" />
 
-    </LinearLayout>
+            <com.example.notes.customobject.TextViewCustom
+                android:id="@+id/txt_date_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:text="@{note.dateTime}"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_7sdp" />
+
+        </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 

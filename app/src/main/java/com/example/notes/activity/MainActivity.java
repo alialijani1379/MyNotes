@@ -193,8 +193,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         adapter = new NoteAdapter(this, notes, this, this);
 //        notesAdapter = new NotesAdapter(this, notes);
         recyclerView.setAdapter(adapter);
-//        animFallDown = AnimationUtils.loadAnimation(this, R.anim.anim_fall_down);
-//        recyclerView.setAnimation(animFallDown);
 //        notesAdapter.submitList(notes);
     }
 
