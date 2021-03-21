@@ -48,6 +48,8 @@ import io.supercharge.shimmerlayout.ShimmerLayout;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, ListenerUpdate, ListenerDelete {
 
+    // Happy new year
+
     //<editor-fold desc="--Declaration--">
     public static final String TITLE_U = "title_u";
     public static final String SUBTITLE_U = "subtitle_u";
