@@ -14,12 +14,12 @@
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"
             android:layout_margin="@dimen/_14sdp"
+            android:contentDescription="@string/app_name"
             android:src="@drawable/ic_tick"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/white"
-            android:contentDescription="@string/app_name" />
+            app:tint="@color/white" />
 
         <com.example.notes.customobject.TextViewCustom
             android:id="@+id/txt_my_notes"
@@ -49,12 +49,12 @@
             android:layout_width="@dimen/_23sdp"
             android:layout_height="@dimen/_23sdp"
             android:layout_marginEnd="@dimen/_14sdp"
+            android:contentDescription="@string/app_name"
             android:src="@drawable/ic_sort"
             app:layout_constraintBottom_toBottomOf="@id/edt_search"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/edt_search"
-            app:tint="@color/white"
-            android:contentDescription="@string/app_name" />
+            app:tint="@color/white" />
 
         <com.example.notes.customobject.EditTextCustom
             android:id="@+id/edt_search"
@@ -81,9 +81,9 @@
             android:id="@+id/lottie_animation"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="@dimen/_16sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edt_search"
-            android:layout_marginTop="@dimen/_16sdp"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/lottie_note" />
@@ -117,6 +117,8 @@
             android:layout_marginHorizontal="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_8sdp"
             android:clipToPadding="false"
+            android:fitsSystemWindows="true"
+            android:layoutAnimation="@anim/layout_fall_down"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"

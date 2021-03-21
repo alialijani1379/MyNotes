@@ -41,8 +41,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import io.supercharge.shimmerlayout.ShimmerLayout;
 
@@ -74,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private NoteAdapter adapter;
     private AlertDialog dialogDelete;
     private LottieAnimationView lottie;
-    private Animation animLottie;
+    private Animation animLottie, animFallDown;
     //</editor-fold>
 
     @Override
@@ -195,6 +193,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         adapter = new NoteAdapter(this, notes, this, this);
 //        notesAdapter = new NotesAdapter(this, notes);
         recyclerView.setAdapter(adapter);
+//        animFallDown = AnimationUtils.loadAnimation(this, R.anim.anim_fall_down);
+//        recyclerView.setAnimation(animFallDown);
 //        notesAdapter.submitList(notes);
     }
 
