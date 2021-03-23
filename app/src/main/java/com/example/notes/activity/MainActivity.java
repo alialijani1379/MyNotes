@@ -45,7 +45,6 @@ import java.util.List;
 import io.supercharge.shimmerlayout.ShimmerLayout;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, ListenerUpdate, ListenerDelete {
-
     // Happy new year
 
     //<editor-fold desc="--Declaration--">
