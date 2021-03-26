@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private NoteAdapter adapter;
     private AlertDialog dialogDelete;
     private LottieAnimationView lottie;
-    private Animation animLottieVisible, animLottieGone;
+    private Animation animLottieVisible;
     //</editor-fold>
 
     @Override
@@ -91,8 +91,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 lottie.setAnimation(animLottieVisible);
             } else {
                 lottie.setVisibility(View.GONE);
-                animLottieGone = AnimationUtils.loadAnimation(this, R.anim.anim_lottie_gone);
-                lottie.setAnimation(animLottieGone);
             }
             imgReverse.setOnClickListener(v -> {
                 Collections.reverse(notes);
