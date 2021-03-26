@@ -35,15 +35,12 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NotesViewHolde
     private ListenerUpdate listenerUpdate;
     private ListenerDelete listenerDelete;
     private LayoutInflater layoutInflater;
-    private Timer timer;
-    private List<Note> notesSource;
 
     public NoteAdapter(Context context, List<Note> noteList, ListenerUpdate listenerUpdate, ListenerDelete listenerDelete) {
         this.context = context;
         this.noteList = noteList;
         this.listenerUpdate = listenerUpdate;
         this.listenerDelete = listenerDelete;
-        notesSource = noteList;
     }
 
     @NonNull
@@ -117,35 +114,6 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NotesViewHolde
             }
         }
 
-    }
-
-    public void searchNotes(String searchKeyword) {
-        timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                if (searchKeyword.trim().isEmpty()) {
-                    noteList = notesSource;
-                } else {
-                    ArrayList<Note> temp = new ArrayList<>();
-                    for (Note note : notesSource) {
-                        if (note.getTitle().toLowerCase().contains(searchKeyword.toLowerCase())
-                                || note.getSubtitle().toLowerCase().contains(searchKeyword.toLowerCase())
-                                || note.getNoteText().toLowerCase().contains(searchKeyword.toLowerCase())) {
-                            temp.add(note);
-                        }
-                    }
-                    noteList = temp;
-                }
-                new Handler(Looper.getMainLooper()).post(() -> notifyDataSetChanged());
-            }
-        }, 500);
-    }
-
-    public void cancelTimer() {
-        if (timer != null) {
-            timer.cancel();
-        }
     }
 
     public void filterList(List<Note> filterList) {
