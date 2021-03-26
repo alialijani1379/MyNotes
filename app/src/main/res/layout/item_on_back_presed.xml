@@ -76,7 +76,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/save"
-                android:textColor="@color/white"
+                android:textColor="@color/red"
                 android:textSize="@dimen/_13sdp"
                 android:textStyle="bold" />
 
