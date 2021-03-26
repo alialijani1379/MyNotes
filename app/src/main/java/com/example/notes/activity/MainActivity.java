@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private AlertDialog dialogDelete;
     private LottieAnimationView lottie;
     private Animation animLottie, animFallDown;
+
     //</editor-fold>
 
     @Override
