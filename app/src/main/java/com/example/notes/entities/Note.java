@@ -32,6 +32,8 @@ public class Note implements Comparable<Note> {
     @ColumnInfo
     private String webLink;
 
+    private boolean isChecked = false;
+
     public Note(String title, String dateTime, String subtitle, String noteText, String imagePath, String color, String webLink) {
         this.title = title;
         this.dateTime = dateTime;
@@ -107,6 +109,14 @@ public class Note implements Comparable<Note> {
 
     public void setWebLink(String webLink) {
         this.webLink = webLink;
+    }
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
     }
 
     @Nullable
