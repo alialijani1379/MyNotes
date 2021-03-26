@@ -103,9 +103,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     } else {
                         adapter.setNotes(notes);
                     }
-//                    if (notes.size() != 0) {
-//                        adapter.searchNotes(s.toString());
-//                    }
                 }
             });
 
