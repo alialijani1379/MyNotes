@@ -40,7 +40,7 @@
                 android:layout_weight="1"
                 android:text="@string/cancel"
                 android:gravity="center"
-                android:textColor="#FF4842"
+                android:textColor="@color/red"
                 android:textSize="@dimen/_13sdp"
                 android:textStyle="bold" />
 
