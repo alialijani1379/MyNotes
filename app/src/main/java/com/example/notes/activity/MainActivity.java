@@ -85,6 +85,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         notesViewModel = new ViewModelProvider(this).get(NotesViewModel.class);
         notesViewModel.getAllNotes().observe(this, notes -> {
             adapter.setNotes(notes);
+
+            edtSearch.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    if (!(s.toString().trim().isEmpty())) {
+                        filter(s.toString(), notes);
+                    } else {
+                        adapter.setNotes(notes);
+                    }
+//                    if (notes.size() != 0) {
+//                        adapter.searchNotes(s.toString());
+//                    }
+                }
+            });
+
             if (notes.size() == 0) {
                 lottie.setVisibility(View.VISIBLE);
                 animLottieVisible = AnimationUtils.loadAnimation(this, R.anim.anim_lottie_visible);
@@ -100,27 +124,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         shimmerLayout.stopShimmerAnimation();
         shimmerLayout.setVisibility(View.GONE);
 
-        edtSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                adapter.cancelTimer();
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-//                        if (!(s.toString().trim().isEmpty())) {
-//                            filter(s.toString(), notes);
-//                        }
-                if (notes.size() != 0) {
-                    adapter.searchNotes(s.toString());
-                }
-            }
-        });
 
     }
 
