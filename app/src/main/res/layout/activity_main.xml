@@ -87,6 +87,7 @@
             app:layout_constraintTop_toBottomOf="@+id/edt_search"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
+            android:visibility="gone"
             app:lottie_rawRes="@raw/lottie_note" />
 
         <io.supercharge.shimmerlayout.ShimmerLayout
