@@ -4,11 +4,10 @@ import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
@@ -23,10 +22,7 @@ import com.example.notes.databinding.ItemNotesBinding;
 import com.example.notes.entities.Note;
 import com.makeramen.roundedimageview.RoundedImageView;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NotesViewHolder> {
 
@@ -35,6 +31,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NotesViewHolde
     private ListenerUpdate listenerUpdate;
     private ListenerDelete listenerDelete;
     private LayoutInflater layoutInflater;
+    private int checkedPosition = 0;
 
     public NoteAdapter(Context context, List<Note> noteList, ListenerUpdate listenerUpdate, ListenerDelete listenerDelete) {
         this.context = context;
@@ -60,6 +57,13 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NotesViewHolde
         holder.setNotes(note);
         holder.itemView.setOnClickListener(v -> listenerUpdate.onListenerUpdate(note, position));
         holder.itemView.setOnLongClickListener(v -> {
+            //------------
+            holder.imageView.setVisibility(View.VISIBLE);
+            if (checkedPosition != position) {
+                notifyItemChanged(checkedPosition);
+                checkedPosition = position;
+            }
+            //---------------
             listenerDelete.onListenerDelete(note);
             return true;
         });
@@ -85,6 +89,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NotesViewHolde
         TextViewCustom txtNoteSubtitle;
         LinearLayout layoutNote;
         RoundedImageView imgNote;
+        ImageView imageView;
 
         public NotesViewHolder(ItemNotesBinding itemNotesBinding) {
             super(itemNotesBinding.getRoot());
@@ -92,6 +97,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NotesViewHolde
             txtNoteSubtitle = itemView.findViewById(R.id.txt_subtitle);
             layoutNote = itemView.findViewById(R.id.layout_notes);
             imgNote = itemView.findViewById(R.id.img_note);
+            imageView = itemView.findViewById(R.id.img_check);
         }
 
         void setNotes(Note notes) {
@@ -112,10 +118,28 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NotesViewHolde
             } else {
                 imgNote.setVisibility(View.GONE);
             }
+            //-----------
+            if (checkedPosition == -1) {
+                imageView.setVisibility(View.GONE);
+            } else {
+                if (checkedPosition == getAdapterPosition()) {
+                    imageView.setVisibility(View.VISIBLE);
+                } else {
+                    imageView.setVisibility(View.GONE);
+                }
+            }
+            //--------------
         }
 
     }
-
+    //-----------------
+    public Note getSelected() {
+        if (checkedPosition != -1) {
+            return noteList.get(checkedPosition);
+        }
+        return null;
+    }
+    //---------------
     public void filterList(List<Note> filterList) {
         noteList = filterList;
         notifyDataSetChanged();
