@@ -114,8 +114,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 lottie.setVisibility(View.GONE);
             }
             imgReverse.setOnClickListener(v -> {
-                Collections.reverse(notes);
-                adapter.notifyDataSetChanged();
+                if (notes.size() == 0) {
+                    Toast.makeText(this, R.string.you_have_no_notes, Toast.LENGTH_SHORT).show();
+                } else {
+                    Collections.reverse(notes);
+                    adapter.notifyDataSetChanged();
+                }
             });
         });
         shimmerLayout.stopShimmerAnimation();

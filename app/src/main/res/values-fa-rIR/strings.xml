@@ -27,4 +27,5 @@
     <string name="sorry_can_not_be_share">با عرض پوزش امکان اشتراک گذاری وجود ندارد</string>
     <string name="delete">حذف</string>
     <string name="are_you_sure_you_want_to_delete_this_note">ایا مطمئنید که میخوهید این یادداشت را حذف کنید؟</string>
+    <string name="you_have_no_notes">هیچ یادداشتی ندارید</string>
 </resources>

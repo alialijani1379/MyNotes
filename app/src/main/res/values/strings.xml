@@ -26,4 +26,5 @@
     <string name="sorry_can_not_be_share">Sorry can not be share</string>
     <string name="delete">Delete</string>
     <string name="are_you_sure_you_want_to_delete_this_note">Are you sure you want to delete this note?</string>
+    <string name="you_have_no_notes">You have no notes</string>
 </resources>
