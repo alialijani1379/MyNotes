@@ -216,11 +216,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         imgState.setVisibility(View.VISIBLE);
         NotesViewModel notesViewModel = new ViewModelProvider(this).get(NotesViewModel.class);
 //        imgState.setOnClickListener(v -> notesViewModel.delete(note));
-        //-------------------
-        if (adapter.getSelected() != null) {
-            Toast.makeText(this, "selected", Toast.LENGTH_SHORT).show();
-        }
-        //-------------------
         imgState.setOnClickListener(v -> showDialogDelete(notesViewModel, note));
     }
 
