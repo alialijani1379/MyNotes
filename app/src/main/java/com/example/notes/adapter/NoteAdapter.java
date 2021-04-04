@@ -32,6 +32,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NotesViewHolde
     private ListenerDelete listenerDelete;
     private LayoutInflater layoutInflater;
     private int checkedPosition = 0;
+    private int selectedPos = RecyclerView.NO_POSITION;
 
     public NoteAdapter(Context context, List<Note> noteList, ListenerUpdate listenerUpdate, ListenerDelete listenerDelete) {
         this.context = context;
